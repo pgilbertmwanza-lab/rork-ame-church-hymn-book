@@ -119,12 +119,10 @@ export default function HomeScreen() {
               {language === "english" ? "EN" : "BE"}
             </Text>
           </TouchableOpacity>
-          {!isPaid && (
-            <TouchableOpacity style={styles.unlockButton} onPress={() => router.push("/unlock")}>
-              <Crown size={18} color={colors.white} />
-              <Text style={styles.unlockButtonText}>Unlock</Text>
-            </TouchableOpacity>
-          )}
+          <TouchableOpacity style={styles.accountButton} onPress={() => router.push("/unlock")}>
+            <Crown size={18} color={colors.white} />
+            <Text style={styles.accountButtonText}>{isPaid ? "Premium" : "Account"}</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.settingsButton}
             onPress={() => router.push("/settings")}
@@ -167,7 +165,7 @@ export default function HomeScreen() {
       {!isPaid && (
         <View style={styles.previewBanner}>
           <Text style={styles.previewBannerText}>
-            Viewing first 10 hymns • Unlock for full access
+            Viewing first 10 hymns in preview mode
           </Text>
         </View>
       )}
@@ -257,10 +255,10 @@ const styles = StyleSheet.create({
     fontWeight: "700" as const,
   },
 
-  unlockButton: {
+  accountButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colors.warning,
+    backgroundColor: colors.professionalBlue,
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
@@ -271,7 +269,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 3,
   },
-  unlockButtonText: {
+  accountButtonText: {
     color: colors.white,
     fontSize: 14,
     fontWeight: "600" as const,

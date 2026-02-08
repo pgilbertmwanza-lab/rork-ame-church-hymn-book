@@ -7,9 +7,11 @@ export interface User {
   googleId?: string;
 }
 
+export type SubscriptionStatus = 'FREE' | 'PREMIUM';
+
 export interface License {
   userId: string;
-  isPaid: boolean;
+  subscriptionStatus: SubscriptionStatus;
   deviceId?: string;
   activatedAt?: Date;
   purchaseToken?: string;

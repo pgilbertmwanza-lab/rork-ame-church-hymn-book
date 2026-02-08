@@ -7,9 +7,11 @@ import { FontSize } from "@/types/hymn";
 
 import { useAuth } from "./auth-context";
 
+type SubscriptionStatus = 'FREE' | 'PREMIUM';
+
 export const [AppContext, useApp] = createContextHook(() => {
   const { user, deviceId } = useAuth();
-  const [isPaid, setIsPaid] = useState(false);
+  const [subscriptionStatus, setSubscriptionStatus] = useState<SubscriptionStatus>('FREE');
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [fontSize, setFontSize] = useState<FontSize>("medium");
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -22,11 +24,11 @@ export const [AppContext, useApp] = createContextHook(() => {
 
   const loadAppState = async () => {
     try {
-      const [favoritesStr, fontSizeStr, darkModeStr, paidStr, languageStr] = await Promise.all([
+      const [favoritesStr, fontSizeStr, darkModeStr, subscriptionStr, languageStr] = await Promise.all([
         AsyncStorage.getItem("favorites"),
         AsyncStorage.getItem("fontSize"),
         AsyncStorage.getItem("isDarkMode"),
-        AsyncStorage.getItem("isPaid"),
+        AsyncStorage.getItem("subscriptionStatus"),
         AsyncStorage.getItem("language"),
       ]);
 
@@ -39,8 +41,8 @@ export const [AppContext, useApp] = createContextHook(() => {
       if (darkModeStr) {
         setIsDarkMode(darkModeStr === "true");
       }
-      if (paidStr) {
-        setIsPaid(paidStr === "true");
+      if (subscriptionStr) {
+        setSubscriptionStatus(subscriptionStr as SubscriptionStatus);
       }
       if (languageStr) {
         setLanguage(languageStr as "english" | "bemba");
@@ -83,19 +85,19 @@ export const [AppContext, useApp] = createContextHook(() => {
   };
 
   const unlockApp = async () => {
-    setIsPaid(true);
-    await AsyncStorage.setItem("isPaid", "true");
+    setSubscriptionStatus('PREMIUM');
+    await AsyncStorage.setItem("subscriptionStatus", "PREMIUM");
   };
 
   const availableHymns = useMemo(() => {
-    if (isPaid) {
+    if (subscriptionStatus === 'PREMIUM') {
       return HYMNS;
     }
     return HYMNS.slice(0, FREE_PREVIEW_COUNT);
-  }, [isPaid]);
+  }, [subscriptionStatus]);
 
   const canAccessHymn = (hymnNumber: number) => {
-    return isPaid || hymnNumber <= FREE_PREVIEW_COUNT;
+    return subscriptionStatus === 'PREMIUM' || hymnNumber <= FREE_PREVIEW_COUNT;
   };
 
   const favoriteHymns = useMemo(() => {
@@ -103,7 +105,8 @@ export const [AppContext, useApp] = createContextHook(() => {
   }, [favorites]);
 
   return {
-    isPaid,
+    subscriptionStatus,
+    isPaid: subscriptionStatus === 'PREMIUM',
     favorites,
     fontSize,
     isDarkMode,
