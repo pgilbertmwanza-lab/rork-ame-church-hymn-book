@@ -2073,7 +2073,7 @@ export const HYMNS: Hymn[] = [
     ],
   },
   {
-    id: "9",
+    id: "9-variant",
     number: 9,
     title: "Itoteleni mfumu nkalamba",
     titleBemba: "Itoteleni mfumu nkalamba",
@@ -2089,7 +2089,7 @@ export const HYMNS: Hymn[] = [
     ],
   },
   {
-    id: "13",
+    id: "13-variant",
     number: 13,
     title: "Lesa wa maka no luse",
     titleBemba: "Lesa wa maka no luse",
