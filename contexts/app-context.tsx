@@ -3,7 +3,7 @@ import createContextHook from "@nkzw/create-context-hook";
 import { useEffect, useState, useMemo } from "react";
 
 import { HYMNS, FREE_PREVIEW_COUNT } from "@/mocks/hymns";
-import { FontSize, Hymn } from "@/types/hymn";
+import { FontSize } from "@/types/hymn";
 
 import { useAuth } from "./auth-context";
 
