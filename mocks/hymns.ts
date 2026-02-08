@@ -1619,7 +1619,7 @@ export const HYMNS: Hymn[] = [
     id: "235",
     number: 235,
     title: "Ndelolekesha ku mulu",
-    titleBemba: "Ndekekesha ku mulu",
+    titleBemba: "Ndelolekesha ku mulu",
     category: "Heaven",
     verses: [],
     versesBemba: [
