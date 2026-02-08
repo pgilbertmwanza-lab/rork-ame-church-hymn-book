@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { Moon, Sun, Type, LogOut, User, ExternalLink } from "lucide-react-native";
+import { Moon, Sun, Type, LogOut, User, ExternalLink, RefreshCw } from "lucide-react-native";
 import React from "react";
 import {
   View,
@@ -9,6 +9,7 @@ import {
   ScrollView,
   Switch,
   Linking,
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -19,7 +20,7 @@ import { FontSize } from "@/types/hymn";
 
 export default function SettingsScreen() {
   const { user, signOut } = useAuth();
-  const { fontSize, updateFontSize, isDarkMode, toggleDarkMode, subscriptionStatus } = useApp();
+  const { fontSize, updateFontSize, isDarkMode, toggleDarkMode, subscriptionStatus, refreshAccess, isRefreshing } = useApp();
   const isDark = isDarkMode;
 
   const handleManageAccount = async () => {
@@ -94,6 +95,25 @@ export default function SettingsScreen() {
                 </Text>
               </View>
               <ExternalLink size={16} color={isDark ? colors.dark.textSecondary : colors.light.textSecondary} />
+            </View>
+          </TouchableOpacity>
+          
+          <TouchableOpacity
+            style={[styles.card, isDark ? styles.cardDark : styles.cardLight, styles.cardMargin]}
+            onPress={refreshAccess}
+            disabled={isRefreshing}
+          >
+            <View style={styles.settingRow}>
+              <View style={styles.settingLeft}>
+                {isRefreshing ? (
+                  <ActivityIndicator size="small" color={isDark ? colors.dark.text : colors.light.primary} />
+                ) : (
+                  <RefreshCw size={20} color={isDark ? colors.dark.text : colors.light.primary} />
+                )}
+                <Text style={[styles.settingLabel, isDark ? styles.textDark : styles.textLight]}>
+                  {isRefreshing ? "Refreshing..." : "Refresh Access"}
+                </Text>
+              </View>
             </View>
           </TouchableOpacity>
         </View>

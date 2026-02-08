@@ -1,5 +1,5 @@
 import { router, Stack } from "expo-router";
-import { Crown, Check, ExternalLink } from "lucide-react-native";
+import { Crown, Check, ExternalLink, RefreshCw } from "lucide-react-native";
 import React from "react";
 import {
   View,
@@ -8,13 +8,14 @@ import {
   StyleSheet,
   ScrollView,
   Linking,
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useApp } from "@/contexts/app-context";
 
 export default function UnlockScreen() {
-  const { subscriptionStatus, isDarkMode: isDark } = useApp();
+  const { subscriptionStatus, isDarkMode: isDark, refreshAccess, isRefreshing } = useApp();
 
   const handleManageAccount = async () => {
     const url = "https://my-site-nul308ne-pgilbertmwanza.wix-vibe.com/apps";
@@ -81,6 +82,21 @@ export default function UnlockScreen() {
         >
           <ExternalLink size={20} color="#fff" />
           <Text style={styles.manageButtonText}>Manage Account</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.refreshButton, isDark ? styles.refreshButtonDark : styles.refreshButtonLight]}
+          onPress={refreshAccess}
+          disabled={isRefreshing}
+        >
+          {isRefreshing ? (
+            <ActivityIndicator size="small" color={isDark ? "#fff" : "#1A237E"} />
+          ) : (
+            <RefreshCw size={20} color={isDark ? "#fff" : "#1A237E"} />
+          )}
+          <Text style={[styles.refreshButtonText, isDark ? styles.textDark : styles.textLight]}>
+            {isRefreshing ? "Refreshing..." : "Refresh Access"}
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -204,7 +220,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    marginBottom: 16,
+    marginBottom: 12,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -213,6 +229,28 @@ const styles = StyleSheet.create({
   },
   manageButtonText: {
     color: "#fff",
+    fontSize: 18,
+    fontWeight: "600" as const,
+  },
+  refreshButton: {
+    flexDirection: "row",
+    height: 56,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    marginBottom: 12,
+    borderWidth: 2,
+    borderColor: "#1A237E",
+  },
+  refreshButtonLight: {
+    backgroundColor: "#fff",
+  },
+  refreshButtonDark: {
+    backgroundColor: "#2a2a2a",
+    borderColor: "#fff",
+  },
+  refreshButtonText: {
     fontSize: 18,
     fontWeight: "600" as const,
   },
