@@ -2073,38 +2073,6 @@ export const HYMNS: Hymn[] = [
     ],
   },
   {
-    id: "9-variant",
-    number: 9,
-    title: "Itoteleni mfumu nkalamba",
-    titleBemba: "Itoteleni mfumu nkalamba",
-    category: "Worship",
-    verses: [],
-    versesBemba: [
-      "Itoteleni mfumu nkalamba Imbileni ya luse na maka\nNi nkwela yakosa Eitucinga,\nNi kwisano yaba Ku mulu kwine",
-      "Lumbenya maka no luse Iwakwe Nsalu lubuto mulu e sano\nMwela na makumbi ewafilenga Cipupu ne mfifi Emo endela",
-      "Calo na fyonse ifisangwamo Fyabumbwa kale ku maka yakwe\nAcipampamike kwifunde lyakwe Acishingulwishe na bemba wakwe",
-      "Bupe bwa mwine bwakupapisha Na mulwelele na mu kasuba\nNa ku mpili kwine na mu mimana Bwishila mu mume ne mfula ine",
-      "Bena lukungu banaka nifwe Twamusumina talaya bufi\nUbube busuma ebo twapelwa Kabumba kacinga na kalubula",
-      "Uli lubuto uli wa luse Bamalaika bamwibile pe,\nPamo nefwe bene mu nyimbo shesu Ne ndimi shacine twimbilyo mulu\nAmen"
-    ],
-  },
-  {
-    id: "13-variant",
-    number: 13,
-    title: "Lesa wa maka no luse",
-    titleBemba: "Lesa wa maka no luse",
-    category: "Adoration",
-    verses: [],
-    versesBemba: [
-      "Lesa wa maka no luse Iwe uli muyayaya\nIfintu fyonse filipo Fikonauka fye fyonse",
-      "Shiwi lyobe lya pe na pe Nangu kukaneba bantu\nEkuti calo no mulu Teti kobe nga wasosa",
-      "Tata ndekunkulo koli No bucetekelo bobe\nUmfumyemo mu fyabipa Mbe musuma no kutemwa",
-      "Ifibi fya kafyalilo Fyaba mu mutima wandi\nUnsambe fipwililile Mpalane nobe we mfumu",
-      "Amaka yonse fye yonse Unsambishe mbute tutu\nBufumu bobe busuma Tabufwaya mpulumushi",
-      "Unsambishe mbute tutu Ifibi fyonse fifume\nNiwe wikale muli ne Yesu eo nkafwilemo.\nAmen"
-    ],
-  },
-  {
     id: "28",
     number: 28,
     title: "Kasesema ni Esaya",
