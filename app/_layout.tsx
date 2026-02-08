@@ -195,7 +195,7 @@ export default function RootLayout() {
   return (
     <AuthContext>
       <AppContext>
-        <GestureHandlerRootView>
+        <GestureHandlerRootView style={{ flex: 1 }}>
           <AuthGuard>
             <RootLayoutNav />
           </AuthGuard>
