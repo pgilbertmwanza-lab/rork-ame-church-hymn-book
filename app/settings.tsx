@@ -23,7 +23,7 @@ export default function SettingsScreen() {
   const isDark = isDarkMode;
 
   const handleManageAccount = async () => {
-    const url = "https://amehymnsapp.wixsite.com/account";
+    const url = "https://my-site-nul308ne-pgilbertmwanza.wix-vibe.com/apps";
     const canOpen = await Linking.canOpenURL(url);
     if (canOpen) {
       await Linking.openURL(url);
