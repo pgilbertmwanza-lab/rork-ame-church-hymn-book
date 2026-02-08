@@ -86,7 +86,6 @@ export default function UnlockScreen() {
         <TouchableOpacity
           style={styles.cancelButton}
           onPress={() => router.back()}
-          disabled={isProcessing}
         >
           <Text style={[styles.cancelButtonText, isDark ? styles.subtextDark : styles.subtextLight]}>
             Maybe Later
