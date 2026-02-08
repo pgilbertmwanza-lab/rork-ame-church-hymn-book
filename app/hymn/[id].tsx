@@ -325,21 +325,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   languageButtonLight: {
-    borderColor: colors.light.border,
-    backgroundColor: colors.light.surface,
+    borderColor: "#0d1b2a",
+    backgroundColor: "#0d1b2a",
   },
   languageButtonDark: {
     borderColor: colors.dark.border,
     backgroundColor: colors.dark.surface,
   },
   languageButtonActive: {
-    backgroundColor: colors.churchBlue,
-    borderColor: colors.churchBlue,
+    backgroundColor: "#0d1b2a",
+    borderColor: "#0d1b2a",
+    opacity: 0.8,
   },
   languageButtonText: {
     fontSize: 16,
     fontWeight: "600" as const,
-    color: colors.mediumGray,
+    color: colors.white,
   },
   languageButtonTextDark: {
     color: colors.dark.textSecondary,
