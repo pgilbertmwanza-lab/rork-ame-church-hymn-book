@@ -4,13 +4,11 @@ import { router } from "expo-router";
 import createContextHook from "@nkzw/create-context-hook";
 import { useEffect, useState } from "react";
 import { Alert } from "react-native";
-import { trpc } from "@/lib/trpc";
 
 interface AuthUser {
   userId: string;
   email: string;
   displayName: string;
-  subscriptionStatus: 'FREE' | 'PREMIUM';
 }
 
 interface StoredUser {
@@ -34,14 +32,9 @@ export const [AuthContext, useAuth] = createContextHook(() => {
 
   const loadAuth = async () => {
     try {
-      const [storedUser, storedToken] = await Promise.all([
-        AsyncStorage.getItem("auth_user"),
-        AsyncStorage.getItem("auth_token"),
-      ]);
-      
-      if (storedUser && storedToken) {
-        global.authToken = storedToken;
-        setUser(JSON.parse(storedUser));
+      const stored = await AsyncStorage.getItem("auth_user");
+      if (stored) {
+        setUser(JSON.parse(stored));
       }
     } catch (error) {
       console.error("Failed to load auth:", error);
@@ -65,38 +58,40 @@ export const [AuthContext, useAuth] = createContextHook(() => {
 
   const signOut = async () => {
     setUser(null);
-    global.authToken = undefined;
-    await Promise.all([
-      AsyncStorage.removeItem("auth_user"),
-      AsyncStorage.removeItem("auth_token"),
-    ]);
+    await AsyncStorage.removeItem("auth_user");
     router.replace("/sign-in");
   };
 
   const signIn = async (email: string, password: string) => {
     setIsSigningIn(true);
     try {
-      const result = await trpc.auth.signIn.mutate({ email, password });
+      const usersData = await AsyncStorage.getItem("users_db");
+      const users: StoredUser[] = usersData ? JSON.parse(usersData) : [];
       
-      const token = `${result.userId}:${email}`;
-      global.authToken = token;
-      await AsyncStorage.setItem("auth_token", token);
+      const foundUser = users.find(u => u.email.toLowerCase() === email.toLowerCase());
       
-      const profile = await trpc.auth.getProfile.query();
+      if (!foundUser) {
+        Alert.alert("Error", "No account found with this email. Please sign up first.");
+        return;
+      }
+      
+      if (foundUser.password !== password) {
+        Alert.alert("Error", "Incorrect password. Please try again.");
+        return;
+      }
       
       const authUser: AuthUser = {
-        userId: result.userId,
-        email: result.email,
-        displayName: result.displayName,
-        subscriptionStatus: profile.subscriptionStatus,
+        userId: foundUser.userId,
+        email: foundUser.email,
+        displayName: foundUser.displayName,
       };
       
       setUser(authUser);
       await AsyncStorage.setItem("auth_user", JSON.stringify(authUser));
       router.replace("/");
-    } catch (error: any) {
+    } catch (error) {
       console.error('[Auth] Sign in failed:', error);
-      Alert.alert("Error", error?.message || "Failed to sign in. Please try again.");
+      Alert.alert("Error", "Failed to sign in. Please try again.");
     } finally {
       setIsSigningIn(false);
     }
@@ -105,25 +100,37 @@ export const [AuthContext, useAuth] = createContextHook(() => {
   const signUp = async (email: string, password: string, displayName: string) => {
     setIsSigningUp(true);
     try {
-      const result = await trpc.auth.signUp.mutate({ email, password, displayName });
+      const usersData = await AsyncStorage.getItem("users_db");
+      const users: StoredUser[] = usersData ? JSON.parse(usersData) : [];
       
-      const token = `${result.userId}:${email}`;
-      global.authToken = token;
-      await AsyncStorage.setItem("auth_token", token);
+      const existingUser = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+      if (existingUser) {
+        Alert.alert("Error", "An account with this email already exists. Please sign in instead.");
+        return;
+      }
+      
+      const newUser: StoredUser = {
+        email,
+        password,
+        displayName,
+        userId: Crypto.randomUUID(),
+      };
+      
+      users.push(newUser);
+      await AsyncStorage.setItem("users_db", JSON.stringify(users));
       
       const authUser: AuthUser = {
-        userId: result.userId,
-        email: result.email,
-        displayName: result.displayName,
-        subscriptionStatus: 'FREE',
+        userId: newUser.userId,
+        email: newUser.email,
+        displayName: newUser.displayName,
       };
       
       setUser(authUser);
       await AsyncStorage.setItem("auth_user", JSON.stringify(authUser));
       router.replace("/");
-    } catch (error: any) {
+    } catch (error) {
       console.error('[Auth] Sign up failed:', error);
-      Alert.alert("Error", error?.message || "Failed to create account. Please try again.");
+      Alert.alert("Error", "Failed to create account. Please try again.");
     } finally {
       setIsSigningUp(false);
     }

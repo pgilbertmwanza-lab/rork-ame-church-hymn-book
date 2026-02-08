@@ -1,11 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import createContextHook from "@nkzw/create-context-hook";
-import { useEffect, useState, useMemo, useCallback } from "react";
-import { AppState, AppStateStatus } from "react-native";
+import { useEffect, useState, useMemo } from "react";
 
 import { HYMNS, FREE_PREVIEW_COUNT } from "@/mocks/hymns";
 import { FontSize } from "@/types/hymn";
-import { trpc } from "@/lib/trpc";
 
 import { useAuth } from "./auth-context";
 
@@ -19,30 +17,18 @@ export const [AppContext, useApp] = createContextHook(() => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [language, setLanguage] = useState<"english" | "bemba">("english");
   const [isLoadingAppState, setIsLoadingAppState] = useState(true);
-  const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
     loadAppState();
   }, [user]);
 
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', handleAppStateChange);
-    return () => subscription.remove();
-  }, [user]);
-
-  const handleAppStateChange = async (nextAppState: AppStateStatus) => {
-    if (nextAppState === 'active' && user) {
-      console.log('[AppContext] App became active, refreshing subscription status...');
-      await refreshSubscriptionStatus();
-    }
-  };
-
   const loadAppState = async () => {
     try {
-      const [favoritesStr, fontSizeStr, darkModeStr, languageStr] = await Promise.all([
+      const [favoritesStr, fontSizeStr, darkModeStr, subscriptionStr, languageStr] = await Promise.all([
         AsyncStorage.getItem("favorites"),
         AsyncStorage.getItem("fontSize"),
         AsyncStorage.getItem("isDarkMode"),
+        AsyncStorage.getItem("subscriptionStatus"),
         AsyncStorage.getItem("language"),
       ]);
 
@@ -55,43 +41,18 @@ export const [AppContext, useApp] = createContextHook(() => {
       if (darkModeStr) {
         setIsDarkMode(darkModeStr === "true");
       }
+      if (subscriptionStr) {
+        setSubscriptionStatus(subscriptionStr as SubscriptionStatus);
+      }
       if (languageStr) {
         setLanguage(languageStr as "english" | "bemba");
       }
-
-      if (user) {
-        await refreshSubscriptionStatus();
-      }
     } catch (error) {
       console.error("Failed to load app state:", error);
-      setSubscriptionStatus('FREE');
     } finally {
       setIsLoadingAppState(false);
     }
   };
-
-  const refreshSubscriptionStatus = useCallback(async () => {
-    if (!user) {
-      console.log('[AppContext] No user, setting status to FREE');
-      setSubscriptionStatus('FREE');
-      return;
-    }
-
-    try {
-      console.log('[AppContext] Fetching subscription status from backend...');
-      const profile = await trpc.auth.getProfile.query();
-      console.log('[AppContext] Backend subscription status:', profile.subscriptionStatus);
-      
-      setSubscriptionStatus(profile.subscriptionStatus);
-      
-      const authUser = JSON.parse(await AsyncStorage.getItem('auth_user') || '{}');
-      authUser.subscriptionStatus = profile.subscriptionStatus;
-      await AsyncStorage.setItem('auth_user', JSON.stringify(authUser));
-    } catch (error) {
-      console.error('[AppContext] Failed to fetch subscription status:', error);
-      setSubscriptionStatus('FREE');
-    }
-  }, [user]);
 
   const toggleFavorite = async (hymnId: string) => {
     const newFavorites = new Set(favorites);
@@ -123,13 +84,9 @@ export const [AppContext, useApp] = createContextHook(() => {
     await AsyncStorage.setItem("language", newValue);
   };
 
-  const refreshAccess = async () => {
-    setIsRefreshing(true);
-    try {
-      await refreshSubscriptionStatus();
-    } finally {
-      setIsRefreshing(false);
-    }
+  const unlockApp = async () => {
+    setSubscriptionStatus('PREMIUM');
+    await AsyncStorage.setItem("subscriptionStatus", "PREMIUM");
   };
 
   const availableHymns = useMemo(() => {
@@ -155,7 +112,6 @@ export const [AppContext, useApp] = createContextHook(() => {
     isDarkMode,
     language,
     isLoadingAppState,
-    isRefreshing,
     deviceId,
     availableHymns,
     favoriteHymns,
@@ -164,7 +120,6 @@ export const [AppContext, useApp] = createContextHook(() => {
     updateFontSize,
     toggleDarkMode,
     toggleLanguage,
-    refreshAccess,
-    refreshSubscriptionStatus,
+    unlockApp,
   };
 });
