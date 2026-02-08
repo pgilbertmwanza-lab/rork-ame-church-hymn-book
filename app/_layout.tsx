@@ -6,19 +6,8 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { AppContext, useApp } from "@/contexts/app-context";
 import { AuthContext, useAuth } from "@/contexts/auth-context";
-import { PurchasesContext } from "@/contexts/purchases-context";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 SplashScreen.preventAutoHideAsync();
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5,
-      retry: 2,
-    },
-  },
-});
 
 function LoadingScreen() {
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
@@ -204,18 +193,14 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthContext>
-        <PurchasesContext>
-          <AppContext>
-            <GestureHandlerRootView>
-              <AuthGuard>
-                <RootLayoutNav />
-              </AuthGuard>
-            </GestureHandlerRootView>
-          </AppContext>
-        </PurchasesContext>
-      </AuthContext>
-    </QueryClientProvider>
+    <AuthContext>
+      <AppContext>
+        <GestureHandlerRootView>
+          <AuthGuard>
+            <RootLayoutNav />
+          </AuthGuard>
+        </GestureHandlerRootView>
+      </AppContext>
+    </AuthContext>
   );
 }

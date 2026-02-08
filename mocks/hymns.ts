@@ -1618,12 +1618,12 @@ export const HYMNS: Hymn[] = [
   {
     id: "235",
     number: 235,
-    title: "Ndelolekesha ku mulu",
-    titleBemba: "Ndelolekesha ku mulu",
+    title: "Ndelokekesha ku mulu",
+    titleBemba: "Ndekekesha ku mulu",
     category: "Heaven",
     verses: [],
     versesBemba: [
-      "Ndelolekesha ku mulu\nKu calo caba pa mulu\nKu calo icawamisha\nKu lulumbi lwa ciunda",
+      "Ndekekesha ku mulu\nKu calo caba pa mulu\nKu calo icawamisha\nKu lulumbi lwa ciunda",
       "Ndemwena mu busumino\nKwa Yesu katula wandi\nKu calo ica lulumbi\nEkuli katula wandi",
       "Ndemwena mu busumino\nNdemona katula wandi\nNincetekela nintemwa\nKwa Yesu katula wandi",
       "Mu menso ya busumino\nNkayamone ciyayaya\nKu calo ca basumina\nKwa Kristu waciyayaya",
