@@ -17,7 +17,7 @@ export default function UnlockScreen() {
   const { subscriptionStatus, isDarkMode: isDark } = useApp();
 
   const handleManageAccount = async () => {
-    const url = "https://my-site-nul308ne-pgilbertmwanza.wix-vibe.com/apps";
+    const url = "https://amehymnsapp.wixsite.com/account";
     const canOpen = await Linking.canOpenURL(url);
     if (canOpen) {
       await Linking.openURL(url);
