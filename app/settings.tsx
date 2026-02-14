@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { Moon, Sun, Type, LogOut, User, ExternalLink } from "lucide-react-native";
+import { Moon, Sun, Type, LogOut, User, ExternalLink, RefreshCw } from "lucide-react-native";
 import React from "react";
 import {
   View,
@@ -19,7 +19,16 @@ import { FontSize } from "@/types/hymn";
 
 export default function SettingsScreen() {
   const { user, signOut } = useAuth();
-  const { fontSize, updateFontSize, isDarkMode, toggleDarkMode, subscriptionStatus } = useApp();
+  const { 
+    fontSize, 
+    updateFontSize, 
+    isDarkMode, 
+    toggleDarkMode, 
+    subscriptionStatus,
+    refreshSubscriptionStatus,
+    isSyncingSubscription,
+    lastSyncTime,
+  } = useApp();
   const isDark = isDarkMode;
 
   const handleManageAccount = async () => {
@@ -94,6 +103,36 @@ export default function SettingsScreen() {
                 </Text>
               </View>
               <ExternalLink size={16} color={isDark ? colors.dark.textSecondary : colors.light.textSecondary} />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.card, isDark ? styles.cardDark : styles.cardLight, styles.cardMargin]}
+            onPress={refreshSubscriptionStatus}
+            disabled={isSyncingSubscription}
+          >
+            <View style={styles.settingRow}>
+              <View style={styles.settingLeft}>
+                <RefreshCw 
+                  size={20} 
+                  color={isSyncingSubscription ? colors.mediumGray : (isDark ? colors.dark.text : colors.light.primary)} 
+                />
+                <View>
+                  <Text style={[styles.settingLabel, isDark ? styles.textDark : styles.textLight]}>
+                    Restore Access
+                  </Text>
+                  {lastSyncTime && (
+                    <Text style={[styles.syncTimeText, isDark ? styles.subtextDark : styles.subtextLight]}>
+                      Last synced: {lastSyncTime.toLocaleTimeString()}
+                    </Text>
+                  )}
+                </View>
+              </View>
+              {isSyncingSubscription && (
+                <Text style={[styles.syncingText, isDark ? styles.subtextDark : styles.subtextLight]}>
+                  Syncing...
+                </Text>
+              )}
             </View>
           </TouchableOpacity>
         </View>
@@ -345,6 +384,14 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
+  },
+  syncTimeText: {
+    fontSize: 12,
+    marginTop: 2,
+  },
+  syncingText: {
+    fontSize: 14,
+    fontStyle: "italic" as const,
   },
   textLight: {
     color: colors.light.text,
