@@ -56,30 +56,6 @@ function LoadingScreen() {
   );
 }
 
-function AuthGuard({ children }: { children: React.ReactNode }) {
-  const { user, isLoading } = useAuth();
-  const segments = useSegments();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (isLoading) return;
-
-    const inAuthGroup = segments[0] === "(tabs)";
-
-    if (!user && inAuthGroup) {
-      router.replace("/sign-in");
-    } else if (user && !inAuthGroup && segments[0] !== "unlock" && segments[0] !== "hymn" && segments[0] !== "sign-in" && segments[0] !== "sign-up" && segments[0] !== "settings") {
-      router.replace("/");
-    }
-  }, [user, isLoading, segments, router]);
-
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
-
-  return <>{children}</>;
-}
-
 function RootLayoutNav() {
   const { isDarkMode } = useApp();
   
