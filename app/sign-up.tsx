@@ -45,7 +45,7 @@ export default function SignUpScreen() {
       return;
     }
 
-    await signUp({email, password, name:displayName});
+    await signUp(email, password, displayName);
   };
 
   const displayError = error;
