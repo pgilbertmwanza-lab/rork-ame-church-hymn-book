@@ -7,7 +7,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AppContext, useApp } from "@/contexts/app-context";
 import { AuthContext, useAuth } from "@/contexts/auth-context";
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync().catch(() => {});
 
 function LoadingScreen() {
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
