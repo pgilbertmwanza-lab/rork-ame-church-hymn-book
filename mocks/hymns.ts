@@ -3699,6 +3699,22 @@ export const HYMNS: Hymn[] = [
     ],
   },
   {
+    id: "235",
+    number: 235,
+    title: "I Am Looking to Heaven",
+    titleBemba: "Ndelokekesha ku mulu",
+    category: "Hope",
+    verses: [],
+    versesBemba: [
+      "Ndelokekesha ku mulu\nNdekekesha ku mulu\nKu calo caba pa mulu\nKu calo icawamisha\nKu lulumbi Iwa ciunda",
+      "Ndemwena mu busumino\nKwa Yesu katula wandi\nKu calo ica lulumbi\nEkuli katula wandi",
+      "Ndemwena mu busumino\nNdemona katula wandi\nNincetekela nintemwa\nKwa Yesu katula wandi",
+      "Mu menso ya busumino\nNkayamone ciyayaya\nKu calo ca basumina\nKwa Kristu waciyayaya",
+      "Alenjita lencebula\nNi yesu katula wandi\nAleti mfume mu calo\nNje kuli katula wandi",
+      "Bune mwebasumina\nBalepembela mu mulu\nNatuci she cino calo\nTacakwata icilambu"
+    ],
+  },
+  {
     id: "240",
     number: 240,
     title: "Whosoever Will",

@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { Moon, Sun, Type, LogOut, User, ExternalLink } from "lucide-react-native";
+import { Moon, Sun, Type, LogOut, User } from "lucide-react-native";
 import React from "react";
 import {
   View,
@@ -8,7 +8,6 @@ import {
   StyleSheet,
   ScrollView,
   Switch,
-  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -19,16 +18,8 @@ import { FontSize } from "@/types/hymn";
 
 export default function SettingsScreen() {
   const { user, signOut } = useAuth();
-  const { fontSize, updateFontSize, isDarkMode, toggleDarkMode, subscriptionStatus } = useApp();
+  const { fontSize, updateFontSize, isDarkMode, toggleDarkMode, isPaid } = useApp();
   const isDark = isDarkMode;
-
-  const handleManageAccount = async () => {
-    const url = "https://amehymnsapp.wixsite.com/account";
-    const canOpen = await Linking.canOpenURL(url);
-    if (canOpen) {
-      await Linking.openURL(url);
-    }
-  };
 
   const fontSizes: FontSize[] = ["small", "medium", "large", "xlarge"];
 
@@ -68,34 +59,14 @@ export default function SettingsScreen() {
                 <Text style={[styles.accountEmail, isDark ? styles.subtextDark : styles.subtextLight]}>
                   {user?.email}
                 </Text>
-                <View style={[styles.statusBadge, subscriptionStatus === 'PREMIUM' ? styles.statusBadgePremium : styles.statusBadgeFree]}>
+                <View style={styles.statusBadge}>
                   <Text style={styles.statusText}>
-                    {subscriptionStatus === 'PREMIUM' ? "Premium" : "Free Preview"}
+                    {isPaid ? "Premium" : "Free Preview"}
                   </Text>
                 </View>
               </View>
             </View>
           </View>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={[styles.sectionTitle, isDark ? styles.textDark : styles.textLight]}>
-            Account Management
-          </Text>
-          <TouchableOpacity
-            style={[styles.card, isDark ? styles.cardDark : styles.cardLight]}
-            onPress={handleManageAccount}
-          >
-            <View style={styles.settingRow}>
-              <View style={styles.settingLeft}>
-                <ExternalLink size={20} color={isDark ? colors.dark.text : colors.light.primary} />
-                <Text style={[styles.settingLabel, isDark ? styles.textDark : styles.textLight]}>
-                  Manage Account
-                </Text>
-              </View>
-              <ExternalLink size={16} color={isDark ? colors.dark.textSecondary : colors.light.textSecondary} />
-            </View>
-          </TouchableOpacity>
         </View>
 
         <View style={styles.section}>
@@ -257,15 +228,10 @@ const styles = StyleSheet.create({
   },
   statusBadge: {
     alignSelf: "flex-start",
+    backgroundColor: colors.professionalBlue,
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 12,
-  },
-  statusBadgePremium: {
-    backgroundColor: "#10B981",
-  },
-  statusBadgeFree: {
-    backgroundColor: colors.professionalBlue,
   },
   statusText: {
     color: colors.white,

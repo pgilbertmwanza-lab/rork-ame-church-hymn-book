@@ -1,26 +1,42 @@
 import { router, Stack } from "expo-router";
-import { Crown, Check, ExternalLink } from "lucide-react-native";
-import React from "react";
+import { Crown, Check, ShieldAlert } from "lucide-react-native";
+import React, { useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  Linking,
+  ActivityIndicator,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useApp } from "@/contexts/app-context";
 
 export default function UnlockScreen() {
-  const { subscriptionStatus, isDarkMode: isDark } = useApp();
+  const { unlockApp, isDarkMode: isDark } = useApp();
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleManageAccount = async () => {
-    const url = "https://amehymnsapp.wixsite.com/account";
-    const canOpen = await Linking.canOpenURL(url);
-    if (canOpen) {
-      await Linking.openURL(url);
+  const handleUnlock = async () => {
+    setIsProcessing(true);
+    try {
+      await unlockApp();
+      Alert.alert(
+        "Success!",
+        "You now have full access to all hymns.",
+        [
+          {
+            text: "OK",
+            onPress: () => router.back(),
+          },
+        ]
+      );
+    } catch (error) {
+      console.error("Unlock error:", error);
+      Alert.alert("Error", "Failed to unlock. Please try again.");
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -30,7 +46,7 @@ export default function UnlockScreen() {
     "Save unlimited favorites",
     "Adjustable font sizes",
     "Dark mode support",
-    "Seamless syncing across devices",
+    "One-time purchase, lifetime access",
   ];
 
   return (
@@ -45,17 +61,17 @@ export default function UnlockScreen() {
             <Crown size={48} color="#F59E0B" />
           </View>
           <Text style={[styles.title, isDark ? styles.textDark : styles.textLight]}>
-            Premium Access
+            Unlock Full Access
           </Text>
           <Text style={[styles.subtitle, isDark ? styles.subtextDark : styles.subtextLight]}>
-            Access the complete hymnal collection
+            Get lifetime access to the complete hymnal collection
           </Text>
         </View>
 
-        <View style={[styles.statusCard, isDark ? styles.statusCardDark : styles.statusCardLight]}>
-          <Text style={[styles.statusLabel, isDark ? styles.textDark : styles.textLight]}>Current Status</Text>
-          <Text style={[styles.statusValue, subscriptionStatus === 'PREMIUM' ? styles.statusPremium : styles.statusFree]}>
-            {subscriptionStatus === 'PREMIUM' ? 'Premium' : 'Free Preview'}
+        <View style={[styles.priceCard, isDark ? styles.priceCardDark : styles.priceCardLight]}>
+          <Text style={styles.priceAmount}>$4.99</Text>
+          <Text style={[styles.priceLabel, isDark ? styles.subtextDark : styles.subtextLight]}>
+            One-time payment • Lifetime access
           </Text>
         </View>
 
@@ -75,17 +91,32 @@ export default function UnlockScreen() {
           ))}
         </View>
 
+        <View style={[styles.infoCard, isDark ? styles.infoCardDark : styles.infoCardLight]}>
+          <ShieldAlert size={20} color={isDark ? "#F59E0B" : "#F59E0B"} />
+          <Text style={[styles.infoText, isDark ? styles.textDark : styles.textLight]}>
+            This purchase is locked to your device to prevent unauthorized sharing.
+          </Text>
+        </View>
+
         <TouchableOpacity
-          style={styles.manageButton}
-          onPress={handleManageAccount}
+          style={[styles.unlockButton, isProcessing && styles.unlockButtonDisabled]}
+          onPress={handleUnlock}
+          disabled={isProcessing}
         >
-          <ExternalLink size={20} color="#fff" />
-          <Text style={styles.manageButtonText}>Manage Account</Text>
+          {isProcessing ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <>
+              <Crown size={20} color="#fff" />
+              <Text style={styles.unlockButtonText}>Unlock Now</Text>
+            </>
+          )}
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.cancelButton}
           onPress={() => router.back()}
+          disabled={isProcessing}
         >
           <Text style={[styles.cancelButtonText, isDark ? styles.subtextDark : styles.subtextLight]}>
             Maybe Later
@@ -93,7 +124,8 @@ export default function UnlockScreen() {
         </TouchableOpacity>
 
         <Text style={[styles.disclaimer, isDark ? styles.subtextDark : styles.subtextLight]}>
-          Manage your account settings and subscription status on our website.
+          By purchasing, you agree to our Terms of Service and Privacy Policy.
+          No subscriptions or recurring charges.
         </Text>
       </ScrollView>
     </SafeAreaView>
@@ -136,13 +168,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
-  statusCard: {
+  priceCard: {
     borderRadius: 16,
     padding: 24,
     alignItems: "center",
     marginBottom: 32,
   },
-  statusCardLight: {
+  priceCardLight: {
     backgroundColor: "#fff",
     borderWidth: 1,
     borderColor: "#E5E7EB",
@@ -152,23 +184,17 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
-  statusCardDark: {
+  priceCardDark: {
     backgroundColor: "#2a2a2a",
   },
-  statusLabel: {
-    fontSize: 14,
-    fontWeight: "600" as const,
+  priceAmount: {
+    fontSize: 48,
+    fontWeight: "700" as const,
+    color: "#F59E0B",
     marginBottom: 8,
   },
-  statusValue: {
-    fontSize: 32,
-    fontWeight: "700" as const,
-  },
-  statusPremium: {
-    color: "#10B981",
-  },
-  statusFree: {
-    color: "#F59E0B",
+  priceLabel: {
+    fontSize: 14,
   },
   featuresContainer: {
     marginBottom: 24,
@@ -196,9 +222,27 @@ const styles = StyleSheet.create({
     fontSize: 16,
     flex: 1,
   },
-  manageButton: {
+  infoCard: {
     flexDirection: "row",
-    backgroundColor: "#1A237E",
+    gap: 12,
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 24,
+  },
+  infoCardLight: {
+    backgroundColor: "#fff3cd",
+  },
+  infoCardDark: {
+    backgroundColor: "#3d3416",
+  },
+  infoText: {
+    flex: 1,
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  unlockButton: {
+    flexDirection: "row",
+    backgroundColor: "#F59E0B",
     height: 56,
     borderRadius: 12,
     alignItems: "center",
@@ -211,7 +255,10 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
-  manageButtonText: {
+  unlockButtonDisabled: {
+    opacity: 0.6,
+  },
+  unlockButtonText: {
     color: "#fff",
     fontSize: 18,
     fontWeight: "600" as const,
@@ -220,7 +267,7 @@ const styles = StyleSheet.create({
     height: 48,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 16,
+    marginBottom: 24,
   },
   cancelButtonText: {
     fontSize: 16,

@@ -7,7 +7,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AppContext, useApp } from "@/contexts/app-context";
 import { AuthContext, useAuth } from "@/contexts/auth-context";
 
-SplashScreen.preventAutoHideAsync().catch(() => {});
+SplashScreen.preventAutoHideAsync();
 
 function LoadingScreen() {
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
@@ -67,8 +67,8 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
     const inAuthGroup = segments[0] === "(tabs)";
 
     if (!user && inAuthGroup) {
-      router.replace("/sign-in" as any);
-    } else if (user && !inAuthGroup && (segments[0] as string) !== "unlock" && (segments[0] as string) !== "hymn" && (segments[0] as string) !== "sign-in" && (segments[0] as string) !== "sign-up" && (segments[0] as string) !== "settings") {
+      router.replace("/sign-in");
+    } else if (user && !inAuthGroup && segments[0] !== "unlock" && segments[0] !== "hymn" && segments[0] !== "sign-in" && segments[0] !== "sign-up" && segments[0] !== "settings") {
       router.replace("/");
     }
   }, [user, isLoading, segments, router]);
@@ -101,8 +101,6 @@ function RootLayoutNav() {
       <Stack.Screen name="sign-up" options={{ headerShown: false }} />
       <Stack.Screen name="settings" options={{ headerShown: false }} />
       <Stack.Screen name="hymn/[id]" options={{ headerShown: false }} />
-      <Stack.Screen name="favorites" options={{ headerShown: false }} />
-      <Stack.Screen name="modal" options={{ presentation: "modal" }} />
       <Stack.Screen 
         name="unlock" 
         options={{ 

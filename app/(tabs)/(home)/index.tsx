@@ -58,7 +58,7 @@ export default function HomeScreen() {
     return (
       <TouchableOpacity
         style={[styles.hymnCard, isDark ? styles.hymnCardDark : styles.hymnCardLight]}
-        onPress={() => router.push(`/hymn/${item.id}` as any)}
+        onPress={() => router.push(`/hymn/${item.id}`)}
         disabled={!hasAccess}
       >
         <View style={styles.hymnCardContent}>
@@ -119,13 +119,15 @@ export default function HomeScreen() {
               {language === "english" ? "EN" : "BE"}
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.accountButton} onPress={() => router.push("/unlock" as any)}>
-            <Crown size={18} color={colors.white} />
-            <Text style={styles.accountButtonText}>{isPaid ? "Premium" : "Account"}</Text>
-          </TouchableOpacity>
+          {!isPaid && (
+            <TouchableOpacity style={styles.unlockButton} onPress={() => router.push("/unlock")}>
+              <Crown size={18} color={colors.white} />
+              <Text style={styles.unlockButtonText}>Unlock</Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             style={styles.settingsButton}
-            onPress={() => router.push("/settings" as any)}
+            onPress={() => router.push("/settings")}
           >
             <Settings size={24} color={isDark ? colors.dark.text : colors.light.primary} />
           </TouchableOpacity>
@@ -165,7 +167,7 @@ export default function HomeScreen() {
       {!isPaid && (
         <View style={styles.previewBanner}>
           <Text style={styles.previewBannerText}>
-            Viewing first 10 hymns in preview mode
+            Viewing first 10 hymns • Unlock for full access
           </Text>
         </View>
       )}
@@ -255,10 +257,10 @@ const styles = StyleSheet.create({
     fontWeight: "700" as const,
   },
 
-  accountButton: {
+  unlockButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colors.professionalBlue,
+    backgroundColor: colors.warning,
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
@@ -269,7 +271,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 3,
   },
-  accountButtonText: {
+  unlockButtonText: {
     color: colors.white,
     fontSize: 14,
     fontWeight: "600" as const,

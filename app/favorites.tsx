@@ -20,7 +20,7 @@ export default function FavoritesScreen() {
     return (
       <TouchableOpacity
         style={[styles.hymnCard, isDark ? styles.hymnCardDark : styles.hymnCardLight]}
-        onPress={() => router.push(`/hymn/${item.id}` as any)}
+        onPress={() => router.push(`/hymn/${item.id}`)}
       >
         <View style={styles.hymnCardContent}>
           <View style={styles.hymnNumber}>

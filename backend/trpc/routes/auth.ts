@@ -40,7 +40,7 @@ export const authRouter = createTRPCRouter({
 
       db.licenses.create({
         userId: user.id,
-        subscriptionStatus: 'FREE',
+        isPaid: false,
       });
 
       return {
@@ -102,7 +102,7 @@ export const authRouter = createTRPCRouter({
 
         db.licenses.create({
           userId: user.id,
-          subscriptionStatus: 'FREE',
+          isPaid: false,
         });
       }
 
@@ -125,7 +125,7 @@ export const authRouter = createTRPCRouter({
       userId: user.id,
       email: user.email,
       displayName: user.displayName,
-      subscriptionStatus: license?.subscriptionStatus || 'FREE',
+      isPaid: license?.isPaid || false,
       deviceId: license?.deviceId,
     };
   }),
@@ -143,12 +143,12 @@ export const authRouter = createTRPCRouter({
         throw new Error("License not found");
       }
 
-      if (license.subscriptionStatus === 'PREMIUM' && license.deviceId && license.deviceId !== input.deviceId) {
-        throw new Error("This account is already activated on another device");
+      if (license.isPaid && license.deviceId && license.deviceId !== input.deviceId) {
+        throw new Error("This purchase is already activated on another device");
       }
 
       db.licenses.update(ctx.userId, {
-        subscriptionStatus: 'PREMIUM',
+        isPaid: true,
         deviceId: input.deviceId,
         activatedAt: new Date(),
         purchaseToken: input.purchaseToken,
@@ -165,21 +165,21 @@ export const authRouter = createTRPCRouter({
     .query(({ ctx, input }) => {
       const license = db.licenses.findByUserId(ctx.userId);
       if (!license) {
-        return { hasAccess: false, subscriptionStatus: 'FREE' };
+        return { hasAccess: false, isPaid: false };
       }
 
-      if (license.subscriptionStatus === 'FREE') {
-        return { hasAccess: true, subscriptionStatus: 'FREE' };
+      if (!license.isPaid) {
+        return { hasAccess: true, isPaid: false };
       }
 
       if (license.deviceId === input.deviceId) {
-        return { hasAccess: true, subscriptionStatus: 'PREMIUM' };
+        return { hasAccess: true, isPaid: true };
       }
 
       return {
         hasAccess: false,
-        subscriptionStatus: 'PREMIUM',
-        message: "This account is already activated on another device",
+        isPaid: true,
+        message: "This purchase is already activated on another device",
       };
     }),
 });

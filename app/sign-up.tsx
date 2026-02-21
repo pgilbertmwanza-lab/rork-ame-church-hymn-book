@@ -187,7 +187,7 @@ export default function SignUpScreen() {
               <Text style={[styles.footerText, isDark ? styles.textDark : styles.textLight]}>
                 Already have an account?{" "}
               </Text>
-              <Link href={"/sign-in" as any} asChild>
+              <Link href="/sign-in" asChild>
                 <TouchableOpacity>
                   <Text style={styles.linkText}>Sign In</Text>
                 </TouchableOpacity>
