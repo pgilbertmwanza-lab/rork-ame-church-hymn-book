@@ -125,7 +125,7 @@ export default function HymnDetailScreen() {
           </Text>
           <TouchableOpacity
             style={styles.unlockButtonLarge}
-            onPress={() => router.push("/unlock")}
+            onPress={() => router.push("/unlock" as any)}
           >
             <Text style={styles.unlockButtonLargeText}>Unlock Full Access</Text>
           </TouchableOpacity>

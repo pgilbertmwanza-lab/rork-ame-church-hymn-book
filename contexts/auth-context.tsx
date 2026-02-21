@@ -59,7 +59,7 @@ export const [AuthContext, useAuth] = createContextHook(() => {
   const signOut = async () => {
     setUser(null);
     await AsyncStorage.removeItem("auth_user");
-    router.replace("/sign-in");
+    router.replace("/sign-in" as any);
   };
 
   const signIn = async (email: string, password: string) => {

@@ -58,7 +58,7 @@ export default function HomeScreen() {
     return (
       <TouchableOpacity
         style={[styles.hymnCard, isDark ? styles.hymnCardDark : styles.hymnCardLight]}
-        onPress={() => router.push(`/hymn/${item.id}`)}
+        onPress={() => router.push(`/hymn/${item.id}` as any)}
         disabled={!hasAccess}
       >
         <View style={styles.hymnCardContent}>
@@ -120,14 +120,14 @@ export default function HomeScreen() {
             </Text>
           </TouchableOpacity>
           {!isPaid && (
-            <TouchableOpacity style={styles.unlockButton} onPress={() => router.push("/unlock")}>
+            <TouchableOpacity style={styles.unlockButton} onPress={() => router.push("/unlock" as any)}>
               <Crown size={18} color={colors.white} />
               <Text style={styles.unlockButtonText}>Unlock</Text>
             </TouchableOpacity>
           )}
           <TouchableOpacity
             style={styles.settingsButton}
-            onPress={() => router.push("/settings")}
+            onPress={() => router.push("/settings" as any)}
           >
             <Settings size={24} color={isDark ? colors.dark.text : colors.light.primary} />
           </TouchableOpacity>
