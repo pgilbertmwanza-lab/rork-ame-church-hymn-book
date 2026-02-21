@@ -3937,20 +3937,6 @@ export const HYMNS: Hymn[] = [
     ],
   },
   {
-    id: "32",
-    number: 32,
-    title: "Kale ubushiku",
-    titleBemba: "Kale ubushiku",
-    category: "Christmas",
-    verses: [],
-    versesBemba: [
-      "Kale ubushiku, Yesu afyelwe\nAishile panshi, Mwana muno\nLelo ncende isuma, tayasangilwe\nPa kufywalwa kwakwe, kale na kale",
-      "Mu mulu bangeli, balemwimbila\nFyonse fyalishele, aisa panshi\nAsendeme pa cani, ng’ombe shalila\nTakwete ing’anda, pano pa calo",
-      "Bangeli mu mulu, bamalaika\nBalemulumbanya, kulya ku mulu\nPano panshi banyina, bamulelele\nBamufukatile, mulya mwitanga",
-      "Bushe ne mupina, ndempuela nshi?\nNga nail kakumba, ndepele mpanga\nNga nail wa mano, ndepele fyuma\nCinshi ndempuela? Mutima wandi.\nAmen."
-    ],
-  },
-  {
     id: "33",
     number: 33,
     title: "Filya Bantu bakale",
@@ -3963,22 +3949,6 @@ export const HYMNS: Hymn[] = [
       "Filya Bantu bapele,\nBupe bwingi bwafina\nEfyo nefwe natwange,\nPakupele fyabupe\nKuli Imwe mwe Mfumu,\nMulubushi, Katula",
       "Yesu Kristu nshiku pe,\nMu lwendo mutubake\nFya mu calo nga fyapwa,\nElyo mukatufishe\nUkwabulo lutanda,\nLwakututungulula",
       "Calo cilya ku mulu,\nTabafwaya lubuto\nLubuto, nseko nimwe,\nNimwe Kasuba uko\nTulembila mu mulu,\nAleluya ku Mfumu.\nAmen"
-    ],
-  },
-  {
-    id: "34",
-    number: 34,
-    title: "Bakakumba balelinde",
-    titleBemba: "Bakakumba balelinde",
-    category: "Christmas",
-    verses: [],
-    versesBemba: [
-      "Bakakumba balelinde\nMpanga ubushiku\nMalaika aikile\nLulumbi lwa mulu",
-      "Asoseshe abamwenso\nAti mwilatina\nNamuletela fye bonse\n“ilandwe lya nseko”",
-      "Mu Mushi wakwa David\nIlelo Nafyalwa\nMfumu kristu Mupusushi\n“Ebulangililo”",
-      "Mwana munono wa mulu\nMulemusangamo\nAlemoneka Ku Bantu\nAli mu mulimba",
-      "Ifyasoselyo wa ntanshi\nElyo lyamoneka\nBumba lya Bamalaika\nLilelumba Lesa",
-      "Ululumbi Kuli Lesa\nMutende mu calo\nIfisuma fyatendeka\nNomba tafyakapwe.\nAmen"
     ],
   },
   {
