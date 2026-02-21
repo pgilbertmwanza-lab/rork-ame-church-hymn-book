@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { Moon, Sun, Type, LogOut, User } from "lucide-react-native";
+import { Moon, Sun, Type, LogOut, User, ExternalLink } from "lucide-react-native";
 import React from "react";
 import {
   View,
@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ScrollView,
   Switch,
+  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -67,6 +68,20 @@ export default function SettingsScreen() {
               </View>
             </View>
           </View>
+
+          <TouchableOpacity
+            style={[styles.card, isDark ? styles.cardDark : styles.cardLight, styles.cardMargin]}
+            onPress={() => Linking.openURL('https://vibe.wix.com/projects/41d683fa-76d0-4b23-af46-d0062ae403d7/v/editor')}
+          >
+            <View style={styles.settingRow}>
+              <View style={styles.settingLeft}>
+                <ExternalLink size={20} color={isDark ? colors.dark.text : colors.light.primary} />
+                <Text style={[styles.settingLabel, isDark ? styles.textDark : styles.textLight]}>
+                  Manage Account
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.section}>
