@@ -1,10 +1,7 @@
 import * as crypto from "expo-crypto";
-import jwt from "jsonwebtoken";
 import * as z from "zod";
 
 import { db } from "@/backend/db/users";
-
-const JWT_SECRET = process.env.JWT_SECRET || "hymn_jwt_secret_change_in_production";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../create-context";
 
@@ -46,17 +43,10 @@ export const authRouter = createTRPCRouter({
         subscriptionStatus: 'FREE',
       });
 
-      const token = jwt.sign(
-        { userId: user.id, email: user.email },
-        JWT_SECRET,
-        { expiresIn: '30d' }
-      );
-
       return {
         userId: user.id,
         email: user.email,
         displayName: user.displayName,
-        token,
       };
     }),
 
@@ -78,17 +68,10 @@ export const authRouter = createTRPCRouter({
         throw new Error("Invalid credentials");
       }
 
-      const token = jwt.sign(
-        { userId: user.id, email: user.email },
-        JWT_SECRET,
-        { expiresIn: '30d' }
-      );
-
       return {
         userId: user.id,
         email: user.email,
         displayName: user.displayName,
-        token,
       };
     }),
 
@@ -123,17 +106,10 @@ export const authRouter = createTRPCRouter({
         });
       }
 
-      const token = jwt.sign(
-        { userId: user.id, email: user.email },
-        JWT_SECRET,
-        { expiresIn: '30d' }
-      );
-
       return {
         userId: user.id,
         email: user.email,
         displayName: user.displayName,
-        token,
       };
     }),
 
@@ -204,36 +180,6 @@ export const authRouter = createTRPCRouter({
         hasAccess: false,
         subscriptionStatus: 'PREMIUM',
         message: "This account is already activated on another device",
-      };
-    }),
-
-  updateSubscriptionFromWebsite: publicProcedure
-    .input(
-      z.object({
-        userId: z.string(),
-        subscriptionStatus: z.enum(['FREE', 'PREMIUM']),
-        webhookSecret: z.string(),
-      })
-    )
-    .mutation(({ input }) => {
-      const expectedSecret = process.env.WEBHOOK_SECRET || "webhook_secret_change_in_production";
-      if (input.webhookSecret !== expectedSecret) {
-        throw new Error("Invalid webhook secret");
-      }
-
-      const license = db.licenses.findByUserId(input.userId);
-      if (!license) {
-        throw new Error("License not found");
-      }
-
-      db.licenses.update(input.userId, {
-        subscriptionStatus: input.subscriptionStatus,
-        activatedAt: input.subscriptionStatus === 'PREMIUM' ? new Date() : license.activatedAt,
-      });
-
-      return {
-        success: true,
-        message: "Subscription updated successfully",
       };
     }),
 });

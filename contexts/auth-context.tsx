@@ -1,47 +1,21 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Crypto from "expo-crypto";
-import * as SecureStore from "expo-secure-store";
 import { router } from "expo-router";
 import createContextHook from "@nkzw/create-context-hook";
 import { useEffect, useState } from "react";
-import { Alert, Platform } from "react-native";
-
-import { trpc } from "@/lib/trpc";
+import { Alert } from "react-native";
 
 interface AuthUser {
   userId: string;
   email: string;
   displayName: string;
-  token: string;
 }
 
-const SECURE_TOKEN_KEY = "auth_token";
-
-async function saveToken(token: string) {
-  if (Platform.OS === "web") {
-    global.authToken = token;
-    await AsyncStorage.setItem(SECURE_TOKEN_KEY, token);
-  } else {
-    global.authToken = token;
-    await SecureStore.setItemAsync(SECURE_TOKEN_KEY, token);
-  }
-}
-
-async function getToken(): Promise<string | null> {
-  if (Platform.OS === "web") {
-    return await AsyncStorage.getItem(SECURE_TOKEN_KEY);
-  } else {
-    return await SecureStore.getItemAsync(SECURE_TOKEN_KEY);
-  }
-}
-
-async function deleteToken() {
-  global.authToken = undefined;
-  if (Platform.OS === "web") {
-    await AsyncStorage.removeItem(SECURE_TOKEN_KEY);
-  } else {
-    await SecureStore.deleteItemAsync(SECURE_TOKEN_KEY);
-  }
+interface StoredUser {
+  email: string;
+  password: string;
+  displayName: string;
+  userId: string;
 }
 
 export const [AuthContext, useAuth] = createContextHook(() => {
@@ -58,13 +32,9 @@ export const [AuthContext, useAuth] = createContextHook(() => {
 
   const loadAuth = async () => {
     try {
-      const token = await getToken();
-      if (token) {
-        global.authToken = token;
-        const stored = await AsyncStorage.getItem("auth_user");
-        if (stored) {
-          setUser(JSON.parse(stored));
-        }
+      const stored = await AsyncStorage.getItem("auth_user");
+      if (stored) {
+        setUser(JSON.parse(stored));
       }
     } catch (error) {
       console.error("Failed to load auth:", error);
@@ -88,58 +58,79 @@ export const [AuthContext, useAuth] = createContextHook(() => {
 
   const signOut = async () => {
     setUser(null);
-    await deleteToken();
     await AsyncStorage.removeItem("auth_user");
     router.replace("/sign-in");
   };
 
-  const signInMutation = trpc.auth.signIn.useMutation();
-
   const signIn = async (email: string, password: string) => {
     setIsSigningIn(true);
     try {
-      const result = await signInMutation.mutateAsync({ email, password });
+      const usersData = await AsyncStorage.getItem("users_db");
+      const users: StoredUser[] = usersData ? JSON.parse(usersData) : [];
+      
+      const foundUser = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+      
+      if (!foundUser) {
+        Alert.alert("Error", "No account found with this email. Please sign up first.");
+        return;
+      }
+      
+      if (foundUser.password !== password) {
+        Alert.alert("Error", "Incorrect password. Please try again.");
+        return;
+      }
       
       const authUser: AuthUser = {
-        userId: result.userId,
-        email: result.email,
-        displayName: result.displayName,
-        token: result.token,
+        userId: foundUser.userId,
+        email: foundUser.email,
+        displayName: foundUser.displayName,
       };
       
-      await saveToken(result.token);
       setUser(authUser);
       await AsyncStorage.setItem("auth_user", JSON.stringify(authUser));
       router.replace("/");
-    } catch (error: any) {
+    } catch (error) {
       console.error('[Auth] Sign in failed:', error);
-      Alert.alert("Error", error.message || "Failed to sign in. Please try again.");
+      Alert.alert("Error", "Failed to sign in. Please try again.");
     } finally {
       setIsSigningIn(false);
     }
   };
 
-  const signUpMutation = trpc.auth.signUp.useMutation();
-
   const signUp = async (email: string, password: string, displayName: string) => {
     setIsSigningUp(true);
     try {
-      const result = await signUpMutation.mutateAsync({ email, password, displayName });
+      const usersData = await AsyncStorage.getItem("users_db");
+      const users: StoredUser[] = usersData ? JSON.parse(usersData) : [];
       
-      const authUser: AuthUser = {
-        userId: result.userId,
-        email: result.email,
-        displayName: result.displayName,
-        token: result.token,
+      const existingUser = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+      if (existingUser) {
+        Alert.alert("Error", "An account with this email already exists. Please sign in instead.");
+        return;
+      }
+      
+      const newUser: StoredUser = {
+        email,
+        password,
+        displayName,
+        userId: Crypto.randomUUID(),
       };
       
-      await saveToken(result.token);
+      users.push(newUser);
+      await AsyncStorage.setItem("users_db", JSON.stringify(users));
+      
+      const authUser: AuthUser = {
+        userId: newUser.userId,
+        email: newUser.email,
+        displayName: newUser.displayName,
+      };
+      
       setUser(authUser);
       await AsyncStorage.setItem("auth_user", JSON.stringify(authUser));
       router.replace("/");
-    } catch (error: any) {
+    } catch (error) {
       console.error('[Auth] Sign up failed:', error);
-      Alert.alert("Error", error.message || "Failed to create account. Please try again.");
+      Alert.alert("Error", "Failed to create account. Please try again.");
     } finally {
       setIsSigningUp(false);
     }

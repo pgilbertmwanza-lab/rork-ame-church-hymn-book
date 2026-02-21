@@ -2,7 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import createContextHook from "@nkzw/create-context-hook";
 import { useEffect, useState, useMemo } from "react";
 
-import { trpc } from "@/lib/trpc";
 import { HYMNS, FREE_PREVIEW_COUNT } from "@/mocks/hymns";
 import { FontSize } from "@/types/hymn";
 
@@ -18,23 +17,10 @@ export const [AppContext, useApp] = createContextHook(() => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [language, setLanguage] = useState<"english" | "bemba">("english");
   const [isLoadingAppState, setIsLoadingAppState] = useState(true);
-  const [lastSyncTime, setLastSyncTime] = useState<Date | null>(null);
-
-  const profileQuery = trpc.auth.getProfile.useQuery(undefined, {
-    enabled: !!user,
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
-  });
 
   useEffect(() => {
     loadAppState();
   }, [user]);
-
-  useEffect(() => {
-    if (profileQuery.data) {
-      syncSubscriptionStatus(profileQuery.data.subscriptionStatus);
-    }
-  }, [profileQuery.data]);
 
   const loadAppState = async () => {
     try {
@@ -65,24 +51,6 @@ export const [AppContext, useApp] = createContextHook(() => {
       console.error("Failed to load app state:", error);
     } finally {
       setIsLoadingAppState(false);
-    }
-  };
-
-  const syncSubscriptionStatus = async (status: SubscriptionStatus) => {
-    if (status !== subscriptionStatus) {
-      console.log('[App] Syncing subscription status:', status);
-      setSubscriptionStatus(status);
-      await AsyncStorage.setItem("subscriptionStatus", status);
-      setLastSyncTime(new Date());
-    }
-  };
-
-  const refreshSubscriptionStatus = async () => {
-    if (!user) return;
-    try {
-      await profileQuery.refetch();
-    } catch (error) {
-      console.error('[App] Failed to refresh subscription:', error);
     }
   };
 
@@ -119,7 +87,6 @@ export const [AppContext, useApp] = createContextHook(() => {
   const unlockApp = async () => {
     setSubscriptionStatus('PREMIUM');
     await AsyncStorage.setItem("subscriptionStatus", "PREMIUM");
-    await refreshSubscriptionStatus();
   };
 
   const availableHymns = useMemo(() => {
@@ -154,8 +121,5 @@ export const [AppContext, useApp] = createContextHook(() => {
     toggleDarkMode,
     toggleLanguage,
     unlockApp,
-    refreshSubscriptionStatus,
-    isSyncingSubscription: profileQuery.isLoading || profileQuery.isFetching,
-    lastSyncTime,
   };
 });
