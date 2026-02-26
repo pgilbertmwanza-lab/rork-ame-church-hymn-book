@@ -37,7 +37,7 @@ export default function FavoritesTabScreen() {
             >
               {displayTitle}
             </Text>
-            {item.category && <Text style={styles.category}>{item.category}</Text>}
+            {!!item.category && <Text style={styles.category}>{item.category}</Text>}
           </View>
           <Heart size={18} color={colors.crimson} fill={colors.crimson} />
         </TouchableOpacity>

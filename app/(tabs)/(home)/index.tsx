@@ -230,7 +230,7 @@ export default function HomeScreen() {
             >
               {displayTitle}
             </Text>
-            {item.category && (
+            {!!item.category && (
               <Text style={[styles.hymnRowCategory, !hasAccess && styles.lockedSubtext]}>
                 {item.category}
               </Text>
@@ -405,7 +405,7 @@ export default function HomeScreen() {
                         ? hymnOfTheDay.titleBemba
                         : hymnOfTheDay.title}
                     </Text>
-                    {hymnOfTheDay.category && (
+                    {!!hymnOfTheDay.category && (
                       <Text style={styles.heroCategory}>{hymnOfTheDay.category}</Text>
                     )}
                   </View>
@@ -491,7 +491,7 @@ export default function HomeScreen() {
           </>
         )}
 
-        {searchQuery.trim() && (
+        {!!searchQuery.trim() && (
           <View style={styles.sectionContainer}>
             <Text style={[styles.sectionTitle, isDark ? styles.textWhite : styles.textDark]}>
               Results

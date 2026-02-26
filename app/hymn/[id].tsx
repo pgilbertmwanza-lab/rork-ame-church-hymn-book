@@ -160,12 +160,12 @@ export default function HymnDetailScreen() {
             <Text style={[styles.hymnTitle, isDark ? styles.textDark : styles.textLight]}>
               {currentTitle}
             </Text>
-            {hymn.author && (
+            {!!hymn.author && (
               <Text style={[styles.hymnAuthor, isDark ? styles.subtextDark : styles.subtextLight]}>
                 {hymn.author}
               </Text>
             )}
-            {hymn.category && (
+            {!!hymn.category && (
               <View style={styles.categoryBadge}>
                 <Text style={styles.categoryBadgeText}>{hymn.category}</Text>
               </View>

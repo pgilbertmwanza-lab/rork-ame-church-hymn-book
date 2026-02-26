@@ -32,7 +32,7 @@ export default function FavoritesScreen() {
             <Text style={[styles.hymnTitle, isDark ? styles.textDark : styles.textLight]}>
               {item.title}
             </Text>
-            {item.category && (
+            {!!item.category && (
               <Text style={[styles.hymnCategory, isDark ? styles.subtextDark : styles.subtextLight]}>
                 {item.category}
               </Text>

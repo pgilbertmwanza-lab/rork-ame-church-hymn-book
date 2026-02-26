@@ -58,7 +58,7 @@ export default function SearchScreen() {
             >
               {displayTitle}
             </Text>
-            {item.category && <Text style={styles.category}>{item.category}</Text>}
+            {!!item.category && <Text style={styles.category}>{item.category}</Text>}
           </View>
           {!hasAccess ? (
             <Lock size={14} color={colors.mutedGray} />
