@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Home, Search, Settings, Church, ScrollText } from "lucide-react-native";
+import { Home, Settings, Church, ScrollText } from "lucide-react-native";
 import React from "react";
 import { Platform, StyleSheet } from "react-native";
 import { BlurView } from "expo-blur";
@@ -55,21 +55,20 @@ export default function TabLayout() {
       <Tabs.Screen
         name="search"
         options={{
-          title: "Search",
-          tabBarIcon: ({ color, size }) => <Search size={size - 2} color={color} strokeWidth={1.8} />,
+          href: null,
         }}
       />
       <Tabs.Screen
         name="call-to-worship"
         options={{
-          title: "Worship",
+          title: "Call to Worship",
           tabBarIcon: ({ color, size }) => <Church size={size - 2} color={color} strokeWidth={1.8} />,
         }}
       />
       <Tabs.Screen
         name="apostles-creed"
         options={{
-          title: "Creed",
+          title: "Apostles' Creed",
           tabBarIcon: ({ color, size }) => <ScrollText size={size - 2} color={color} strokeWidth={1.8} />,
         }}
       />
