@@ -14,6 +14,7 @@ export const [AppContext, useApp] = createContextHook(() => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [language, setLanguage] = useState<"english" | "bemba">("english");
   const [isLoadingAppState, setIsLoadingAppState] = useState(true);
+  const [recentlyViewed, setRecentlyViewed] = useState<string[]>([]);
 
   const isMember = !!user;
 
@@ -41,6 +42,11 @@ export const [AppContext, useApp] = createContextHook(() => {
       }
       if (languageStr) {
         setLanguage(languageStr as "english" | "bemba");
+      }
+
+      const recentStr = await AsyncStorage.getItem("recentlyViewed");
+      if (recentStr) {
+        setRecentlyViewed(JSON.parse(recentStr));
       }
     } catch (error) {
       console.error("Failed to load app state:", error);
@@ -72,6 +78,21 @@ export const [AppContext, useApp] = createContextHook(() => {
     setIsDarkMode(newValue);
     await AsyncStorage.setItem("isDarkMode", String(newValue));
   }, [isDarkMode]);
+
+  const addRecentlyViewed = useCallback(async (hymnId: string) => {
+    setRecentlyViewed((prev) => {
+      const filtered = prev.filter((id) => id !== hymnId);
+      const updated = [hymnId, ...filtered].slice(0, 10);
+      AsyncStorage.setItem("recentlyViewed", JSON.stringify(updated));
+      return updated;
+    });
+  }, []);
+
+  const recentHymns = useMemo(() => {
+    return recentlyViewed
+      .map((id) => HYMNS.find((h) => h.id === id))
+      .filter(Boolean) as typeof HYMNS;
+  }, [recentlyViewed]);
 
   const toggleLanguage = useCallback(async () => {
     const newValue = language === "english" ? "bemba" : "english";
@@ -109,5 +130,7 @@ export const [AppContext, useApp] = createContextHook(() => {
     updateFontSize,
     toggleDarkMode,
     toggleLanguage,
+    addRecentlyViewed,
+    recentHymns,
   };
 });

@@ -1,4 +1,9 @@
 export default {
+  cardDark: '#1A1A1D',
+  cardElevated: '#222225',
+  surfaceHover: '#2A2A2E',
+  mutedGray: '#8E8E93',
+  shimmer: '#333336',
   deepNavy: "#1A237E",
   charcoal: "#212121",
   darkGray: "#333333",

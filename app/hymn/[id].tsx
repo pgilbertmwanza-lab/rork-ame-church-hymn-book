@@ -19,10 +19,16 @@ type Language = "english" | "bemba";
 
 export default function HymnDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { fontSize, favorites, toggleFavorite, canAccessHymn, isDarkMode: isDark } = useApp();
+  const { fontSize, favorites, toggleFavorite, canAccessHymn, isDarkMode: isDark, addRecentlyViewed } = useApp();
   const [language, setLanguage] = useState<Language>("english");
 
   const hymn = HYMNS.find((h) => h.id === id);
+
+  React.useEffect(() => {
+    if (hymn && id) {
+      addRecentlyViewed(id);
+    }
+  }, [id, hymn, addRecentlyViewed]);
 
   if (!hymn) {
     return (

@@ -1,6 +1,8 @@
 import { Tabs } from "expo-router";
-import { BookOpen, Church, ScrollText } from "lucide-react-native";
+import { Home, Search, Heart, Settings, Church, ScrollText } from "lucide-react-native";
 import React from "react";
+import { Platform, StyleSheet } from "react-native";
+import { BlurView } from "expo-blur";
 
 import { useApp } from "@/contexts/app-context";
 
@@ -11,16 +13,34 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: isDark ? "#E31B23" : "#1A237E",
-        tabBarInactiveTintColor: isDark ? "#6B6B70" : "#9CA3AF",
-        tabBarStyle: {
-          backgroundColor: isDark ? "#0A0A0B" : "#fff",
-          borderTopColor: isDark ? "#2A2A2E" : "#E5E7EB",
-          borderTopWidth: 1,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: -1 },
-          shadowOpacity: isDark ? 0.3 : 0.05,
-          shadowRadius: 3,
-          elevation: isDark ? 0 : 5,
+        tabBarInactiveTintColor: isDark ? "#555" : "#9CA3AF",
+        tabBarStyle: Platform.OS === "web"
+          ? {
+              backgroundColor: isDark
+                ? "rgba(10, 10, 11, 0.92)"
+                : "rgba(255, 255, 255, 0.88)",
+              borderTopColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)",
+              borderTopWidth: StyleSheet.hairlineWidth,
+            }
+          : {
+              position: "absolute" as const,
+              backgroundColor: "transparent",
+              borderTopWidth: 0,
+              elevation: 0,
+              shadowOpacity: 0,
+            },
+        tabBarBackground: () =>
+          Platform.OS !== "web" ? (
+            <BlurView
+              tint={isDark ? "dark" : "light"}
+              intensity={90}
+              style={StyleSheet.absoluteFill}
+            />
+          ) : null,
+        tabBarLabelStyle: {
+          fontSize: 10,
+          fontWeight: "600" as const,
+          letterSpacing: 0.2,
         },
         headerShown: false,
       }}
@@ -28,22 +48,43 @@ export default function TabLayout() {
       <Tabs.Screen
         name="(home)"
         options={{
-          title: "Hymns",
-          tabBarIcon: ({ color }) => <BookOpen size={24} color={color} />,
+          title: "Home",
+          tabBarIcon: ({ color, size }) => <Home size={size - 2} color={color} strokeWidth={1.8} />,
+        }}
+      />
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: "Search",
+          tabBarIcon: ({ color, size }) => <Search size={size - 2} color={color} strokeWidth={1.8} />,
         }}
       />
       <Tabs.Screen
         name="call-to-worship"
         options={{
-          title: "Call to Worship",
-          tabBarIcon: ({ color }) => <Church size={24} color={color} />,
+          title: "Worship",
+          tabBarIcon: ({ color, size }) => <Church size={size - 2} color={color} strokeWidth={1.8} />,
+        }}
+      />
+      <Tabs.Screen
+        name="favorites"
+        options={{
+          title: "Favorites",
+          tabBarIcon: ({ color, size }) => <Heart size={size - 2} color={color} strokeWidth={1.8} />,
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ color, size }) => <Settings size={size - 2} color={color} strokeWidth={1.8} />,
         }}
       />
       <Tabs.Screen
         name="apostles-creed"
         options={{
-          title: "Apostles' Creed",
-          tabBarIcon: ({ color }) => <ScrollText size={24} color={color} />,
+          title: "Creed",
+          tabBarIcon: ({ color, size }) => <ScrollText size={size - 2} color={color} strokeWidth={1.8} />,
         }}
       />
     </Tabs>
