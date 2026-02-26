@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FAFAFA",
   },
   containerDark: {
-    backgroundColor: "#1a1a1a",
+    backgroundColor: "#0A0A0B",
   },
   keyboardView: {
     flex: 1,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: "#5281BD",
+    backgroundColor: "#E31B23",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 16,
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     color: "#6B7280",
   },
   subtitleDark: {
-    color: "#aaa",
+    color: "#D1D5DB",
   },
   form: {
     width: "100%",
@@ -213,19 +213,19 @@ const styles = StyleSheet.create({
     color: "#212121",
   },
   inputDark: {
-    backgroundColor: "#2a2a2a",
-    borderColor: "#444",
+    backgroundColor: "#151517",
+    borderColor: "#2A2A2E",
     color: "#fff",
   },
   button: {
     height: 52,
-    borderRadius: 12,
+    borderRadius: 26,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 16,
   },
   primaryButton: {
-    backgroundColor: "#1A237E",
+    backgroundColor: "#E31B23",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -255,8 +255,8 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   createAccountButtonDark: {
-    backgroundColor: "#2a2a2a",
-    borderColor: "#444",
+    backgroundColor: "transparent",
+    borderColor: "rgba(255, 255, 255, 0.25)",
   },
   createAccountText: {
     fontSize: 16,
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E5E7EB",
   },
   dividerDark: {
-    backgroundColor: "#444",
+    backgroundColor: "#2A2A2E",
   },
   dividerText: {
     marginHorizontal: 16,
@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   subtextDark: {
-    color: "#aaa",
+    color: "#D1D5DB",
   },
   subtextLight: {
     color: "#6B7280",

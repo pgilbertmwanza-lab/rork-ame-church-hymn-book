@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   hymnNumberBadge: {
-    backgroundColor: colors.churchBlue,
+    backgroundColor: colors.crimson,
     paddingHorizontal: 16,
     paddingVertical: 6,
     borderRadius: 16,
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   categoryBadge: {
-    backgroundColor: colors.professionalBlue,
+    backgroundColor: colors.amber,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 12,
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     width: 88,
     height: 88,
     borderRadius: 44,
-    backgroundColor: "#E8EFF7",
+    backgroundColor: "rgba(227, 27, 35, 0.15)",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 24,
@@ -306,10 +306,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    backgroundColor: colors.churchBlue,
+    backgroundColor: colors.crimson,
     paddingHorizontal: 32,
     paddingVertical: 16,
-    borderRadius: 12,
+    borderRadius: 28,
     width: "100%",
     maxWidth: 280,
     marginBottom: 12,
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
   createAccountButton: {
     paddingHorizontal: 32,
     paddingVertical: 14,
-    borderRadius: 12,
+    borderRadius: 28,
     width: "100%",
     maxWidth: 280,
     alignItems: "center",
@@ -338,8 +338,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light.background,
   },
   createAccountButtonDark: {
-    borderColor: colors.dark.border,
-    backgroundColor: colors.dark.background,
+    borderColor: "rgba(255, 255, 255, 0.25)",
+    backgroundColor: "transparent",
   },
   createAccountButtonText: {
     fontSize: 16,
@@ -384,9 +384,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dark.surface,
   },
   languageButtonActive: {
-    backgroundColor: "#0d1b2a",
-    borderColor: "#0d1b2a",
-    opacity: 0.8,
+    backgroundColor: colors.crimson,
+    borderColor: colors.crimson,
+    opacity: 1,
   },
   languageButtonText: {
     fontSize: 16,

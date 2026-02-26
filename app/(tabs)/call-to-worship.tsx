@@ -134,9 +134,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dark.surface,
   },
   languageButtonActive: {
-    backgroundColor: "#0d1b2a",
-    borderColor: "#0d1b2a",
-    opacity: 0.8,
+    backgroundColor: colors.crimson,
+    borderColor: colors.crimson,
+    opacity: 1,
   },
   languageButtonText: {
     fontSize: 16,
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     color: colors.light.primary,
   },
   roleDark: {
-    color: colors.professionalBlue,
+    color: colors.crimson,
   },
   text: {
     fontSize: 17,

@@ -64,11 +64,11 @@ function RootLayoutNav() {
       screenOptions={{ 
         headerBackTitle: "Back",
         headerStyle: {
-          backgroundColor: isDarkMode ? "#1a1a1a" : "#F9F7F0",
+          backgroundColor: isDarkMode ? "#0A0A0B" : "#F9F7F0",
         },
-        headerTintColor: isDarkMode ? "#fff" : "#315482",
+        headerTintColor: isDarkMode ? "#E31B23" : "#315482",
         headerTitleStyle: {
-          color: isDarkMode ? "#fff" : "#315482",
+          color: isDarkMode ? "#FFFFFF" : "#315482",
         },
       }}
     >

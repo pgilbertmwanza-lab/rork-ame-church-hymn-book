@@ -12,7 +12,12 @@ export default {
   error: "#DC2626",
   warning: "#F59E0B",
   success: "#10B981",
-  
+
+  crimson: "#E31B23",
+  amber: "#D97D20",
+  burgundy: "#5E0B0B",
+  deepBlack: "#0A0A0B",
+
   light: {
     background: "#FAFAFA",
     surface: "#FFFFFF",
@@ -26,18 +31,18 @@ export default {
     tabIconDefault: "#1A237E",
     tabIconSelected: "#1A237E",
   },
-  
+
   dark: {
-    background: "#1A1A1A",
-    surface: "#2A2A2A",
+    background: "#0A0A0B",
+    surface: "#151517",
     text: "#FFFFFF",
-    textSecondary: "#9CA3AF",
-    primary: "#4A90E2",
-    accent: "#5281BD",
-    border: "#374151",
-    hover: "#60A5FA",
-    tint: "#4A90E2",
-    tabIconDefault: "#6B7280",
-    tabIconSelected: "#4A90E2",
+    textSecondary: "#D1D5DB",
+    primary: "#E31B23",
+    accent: "#D97D20",
+    border: "#2A2A2E",
+    hover: "#E31B23",
+    tint: "#E31B23",
+    tabIconDefault: "#6B6B70",
+    tabIconSelected: "#E31B23",
   },
 };

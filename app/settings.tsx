@@ -129,7 +129,7 @@ export default function SettingsScreen() {
               <Switch
                 value={isDarkMode}
                 onValueChange={toggleDarkMode}
-                trackColor={{ false: colors.borderGray, true: colors.actionBlue }}
+                trackColor={{ false: colors.borderGray, true: colors.crimson }}
                 thumbColor={colors.white}
               />
             </View>
@@ -239,6 +239,8 @@ const styles = StyleSheet.create({
   },
   cardDark: {
     backgroundColor: colors.dark.surface,
+    borderWidth: 1,
+    borderColor: colors.dark.border,
   },
   cardMargin: {
     marginTop: 12,
@@ -251,7 +253,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: colors.churchBlue,
+    backgroundColor: colors.crimson,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -270,7 +272,7 @@ const styles = StyleSheet.create({
   },
   statusBadge: {
     alignSelf: "flex-start",
-    backgroundColor: colors.churchBlue,
+    backgroundColor: colors.crimson,
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 12,
@@ -302,9 +304,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    backgroundColor: colors.churchBlue,
+    backgroundColor: colors.crimson,
     paddingVertical: 12,
-    borderRadius: 10,
+    borderRadius: 24,
   },
   settingsSignInText: {
     color: colors.white,
@@ -348,8 +350,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dark.background,
   },
   fontSizeButtonActive: {
-    backgroundColor: colors.professionalBlue,
-    borderColor: colors.professionalBlue,
+    backgroundColor: colors.crimson,
+    borderColor: colors.crimson,
   },
   fontSizeButtonText: {
     fontSize: 14,
@@ -371,7 +373,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff1f0",
   },
   signOutCardDark: {
-    backgroundColor: "#2a1a1a",
+    backgroundColor: "rgba(227, 27, 35, 0.1)",
+    borderWidth: 1,
+    borderColor: "rgba(227, 27, 35, 0.2)",
   },
   signOutText: {
     fontSize: 16,

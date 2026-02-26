@@ -119,6 +119,8 @@ const styles = StyleSheet.create({
   },
   hymnCardDark: {
     backgroundColor: colors.dark.surface,
+    borderWidth: 1,
+    borderColor: colors.dark.border,
   },
   hymnCardContent: {
     flexDirection: "row",
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: colors.churchBlue,
+    backgroundColor: colors.crimson,
     alignItems: "center",
     justifyContent: "center",
   },

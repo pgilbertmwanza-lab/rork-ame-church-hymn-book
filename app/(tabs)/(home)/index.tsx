@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 12,
-    backgroundColor: colors.churchBlue,
+    backgroundColor: colors.crimson,
     alignItems: "center",
     justifyContent: "center",
     shadowColor: "#000",
@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
     color: colors.churchBlue,
   },
   appNameSubDark: {
-    color: colors.professionalBlue,
+    color: colors.crimson,
   },
   headerActions: {
     flexDirection: "row",
@@ -342,7 +342,7 @@ const styles = StyleSheet.create({
   signInButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colors.churchBlue,
+    backgroundColor: colors.crimson,
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 20,
@@ -383,6 +383,8 @@ const styles = StyleSheet.create({
   },
   searchBoxDark: {
     backgroundColor: colors.dark.surface,
+    borderWidth: 1,
+    borderColor: colors.dark.border,
   },
   searchInput: {
     flex: 1,
@@ -409,7 +411,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E8EFF7",
   },
   previewBannerDark: {
-    backgroundColor: "rgba(82, 129, 189, 0.15)",
+    backgroundColor: "rgba(227, 27, 35, 0.12)",
   },
   previewBannerText: {
     fontSize: 13,
@@ -442,6 +444,8 @@ const styles = StyleSheet.create({
   },
   hymnCardDark: {
     backgroundColor: colors.dark.surface,
+    borderWidth: 1,
+    borderColor: colors.dark.border,
   },
   hymnCardLocked: {
     opacity: 0.6,
@@ -455,7 +459,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: colors.churchBlue,
+    backgroundColor: colors.crimson,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -527,7 +531,7 @@ const styles = StyleSheet.create({
   sortFloatingButtonDark: {
     backgroundColor: colors.dark.surface,
     borderWidth: 1,
-    borderColor: "rgba(255, 255, 255, 0.1)",
+    borderColor: colors.dark.border,
   },
   sortFloatingText: {
     fontSize: 12,
@@ -557,12 +561,14 @@ const styles = StyleSheet.create({
   },
   modalContentDark: {
     backgroundColor: colors.dark.surface,
+    borderWidth: 1,
+    borderColor: colors.dark.border,
   },
   modalIconContainer: {
     width: 72,
     height: 72,
     borderRadius: 36,
-    backgroundColor: "#E8EFF7",
+    backgroundColor: "rgba(227, 27, 35, 0.15)",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 20,
@@ -584,10 +590,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    backgroundColor: colors.churchBlue,
+    backgroundColor: colors.crimson,
     width: "100%",
     height: 50,
-    borderRadius: 12,
+    borderRadius: 25,
     marginBottom: 10,
   },
   modalSignInButtonText: {
@@ -598,7 +604,7 @@ const styles = StyleSheet.create({
   modalCreateButton: {
     width: "100%",
     height: 50,
-    borderRadius: 12,
+    borderRadius: 25,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
@@ -609,8 +615,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light.background,
   },
   modalCreateButtonDark: {
-    borderColor: colors.dark.border,
-    backgroundColor: colors.dark.background,
+    borderColor: "rgba(255, 255, 255, 0.25)",
+    backgroundColor: "transparent",
   },
   modalCreateButtonText: {
     fontSize: 16,

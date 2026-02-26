@@ -10,15 +10,15 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: isDark ? "#4A90E2" : "#1A237E",
-        tabBarInactiveTintColor: isDark ? "#888" : "#9CA3AF",
+        tabBarActiveTintColor: isDark ? "#E31B23" : "#1A237E",
+        tabBarInactiveTintColor: isDark ? "#6B6B70" : "#9CA3AF",
         tabBarStyle: {
-          backgroundColor: isDark ? "#1a1a1a" : "#fff",
-          borderTopColor: isDark ? "#333" : "#E5E7EB",
+          backgroundColor: isDark ? "#0A0A0B" : "#fff",
+          borderTopColor: isDark ? "#2A2A2E" : "#E5E7EB",
           borderTopWidth: 1,
           shadowColor: "#000",
           shadowOffset: { width: 0, height: -1 },
-          shadowOpacity: isDark ? 0 : 0.05,
+          shadowOpacity: isDark ? 0.3 : 0.05,
           shadowRadius: 3,
           elevation: isDark ? 0 : 5,
         },
