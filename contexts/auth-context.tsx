@@ -56,10 +56,39 @@ export const [AuthContext, useAuth] = createContextHook(() => {
     }
   };
 
+  const signUp = async (email: string, password: string, displayName: string) => {
+    setIsSigningIn(true);
+    try {
+      const usersData = await AsyncStorage.getItem("users_db");
+      const users: StoredUser[] = usersData ? JSON.parse(usersData) : [];
+
+      const existing = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+      if (existing) {
+        Alert.alert("Account Exists", "An account with this email already exists. Please sign in instead.");
+        return;
+      }
+
+      const userId = Crypto.randomUUID();
+      const newUser: StoredUser = { email, password, displayName, userId };
+      users.push(newUser);
+      await AsyncStorage.setItem("users_db", JSON.stringify(users));
+
+      const authUser: AuthUser = { userId, email, displayName };
+      setUser(authUser);
+      await AsyncStorage.setItem("auth_user", JSON.stringify(authUser));
+      router.replace("/");
+    } catch (error) {
+      console.error('[Auth] Sign up failed:', error);
+      Alert.alert("Error", "Failed to create account. Please try again.");
+    } finally {
+      setIsSigningIn(false);
+    }
+  };
+
   const signOut = async () => {
     setUser(null);
     await AsyncStorage.removeItem("auth_user");
-    router.replace("/sign-in" as any);
+    router.replace("/");
   };
 
   const signIn = async (email: string, password: string) => {
@@ -104,6 +133,7 @@ export const [AuthContext, useAuth] = createContextHook(() => {
     isLoading,
     deviceId,
     signIn,
+    signUp,
     signOut,
     isSigningIn,
   };

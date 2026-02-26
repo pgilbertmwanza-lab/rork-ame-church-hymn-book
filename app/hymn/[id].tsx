@@ -7,7 +7,6 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -133,15 +132,7 @@ export default function HymnDetailScreen() {
             onPress={() => router.push("/sign-in" as any)}
           >
             <LogIn size={20} color={colors.white} />
-            <Text style={styles.signInButtonLargeText}>Sign In</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.createAccountButton, isDark ? styles.createAccountButtonDark : styles.createAccountButtonLight]}
-            onPress={() => Linking.openURL("https://districtrayac.web.app/")}
-          >
-            <Text style={[styles.createAccountButtonText, isDark ? styles.textDark : styles.textLight]}>
-              Create Account
-            </Text>
+            <Text style={styles.signInButtonLargeText}>Sign In / Create Account</Text>
           </TouchableOpacity>
         </View>
       ) : (

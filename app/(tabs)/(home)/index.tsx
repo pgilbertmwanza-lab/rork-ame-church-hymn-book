@@ -11,7 +11,6 @@ import {
   StatusBar,
   Modal,
   Pressable,
-  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -71,7 +70,7 @@ export default function HomeScreen() {
 
   const handleCreateAccount = useCallback(() => {
     setShowMembersModal(false);
-    Linking.openURL("https://districtrayac.web.app/");
+    router.push("/sign-in" as any);
   }, []);
 
   const renderHymnItem = ({ item }: { item: typeof HYMNS[0] }) => {
@@ -241,15 +240,7 @@ export default function HomeScreen() {
               onPress={handleSignIn}
             >
               <LogIn size={18} color={colors.white} />
-              <Text style={styles.modalSignInButtonText}>Sign In</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.modalCreateButton, isDark ? styles.modalCreateButtonDark : styles.modalCreateButtonLight]}
-              onPress={handleCreateAccount}
-            >
-              <Text style={[styles.modalCreateButtonText, isDark ? styles.textDark : styles.textLight]}>
-                Create Account
-              </Text>
+              <Text style={styles.modalSignInButtonText}>Sign In / Create Account</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.modalDismissButton}
