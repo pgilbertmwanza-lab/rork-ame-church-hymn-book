@@ -12,6 +12,7 @@ import {
   ScrollView,
   ActivityIndicator,
   Animated,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -51,12 +52,10 @@ export default function SignInScreen() {
   const handleSignUp = async () => {
     if (!email.trim() || !password.trim() || !displayName.trim()) return;
     if (password !== confirmPassword) {
-      const { Alert } = require("react-native");
       Alert.alert("Passwords Don't Match", "Please make sure both passwords are the same.");
       return;
     }
     if (password.length < 6) {
-      const { Alert } = require("react-native");
       Alert.alert("Password Too Short", "Password must be at least 6 characters.");
       return;
     }
