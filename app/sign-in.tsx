@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   containerLight: {
-    backgroundColor: "#FAFAFA",
+    backgroundColor: "#F9F7F2",
   },
   containerDark: {
     backgroundColor: "#0A0A0B",
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   subtitleLight: {
-    color: "#6B7280",
+    color: "#71717A",
   },
   subtitleDark: {
     color: "#D1D5DB",
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   labelLight: {
-    color: "#212121",
+    color: "#1A1A1A",
   },
   labelDark: {
     color: "#fff",
@@ -208,9 +208,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   inputLight: {
-    backgroundColor: "#fff",
-    borderColor: "#E5E7EB",
-    color: "#212121",
+    backgroundColor: "#FFFFFF",
+    borderColor: "transparent",
+    color: "#1A1A1A",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 2,
   },
   inputDark: {
     backgroundColor: "#151517",
@@ -226,6 +231,7 @@ const styles = StyleSheet.create({
   },
   primaryButton: {
     backgroundColor: "#E31B23",
+    borderRadius: 14,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -246,13 +252,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   createAccountButtonLight: {
-    backgroundColor: "#fff",
-    borderColor: "#E5E7EB",
+    backgroundColor: "#FFFFFF",
+    borderColor: "transparent",
+    borderRadius: 14,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
+    shadowRadius: 10,
+    elevation: 2,
   },
   createAccountButtonDark: {
     backgroundColor: "transparent",
@@ -272,7 +279,7 @@ const styles = StyleSheet.create({
     height: 1,
   },
   dividerLight: {
-    backgroundColor: "#E5E7EB",
+    backgroundColor: "#E4E4E7",
   },
   dividerDark: {
     backgroundColor: "#2A2A2E",
@@ -288,7 +295,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   textLight: {
-    color: "#212121",
+    color: "#1A1A1A",
   },
   textDark: {
     color: "#fff",
@@ -297,6 +304,6 @@ const styles = StyleSheet.create({
     color: "#D1D5DB",
   },
   subtextLight: {
-    color: "#6B7280",
+    color: "#71717A",
   },
 });

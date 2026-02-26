@@ -23,18 +23,21 @@ export default {
   burgundy: "#5E0B0B",
   deepBlack: "#0A0A0B",
 
+  linen: "#F9F7F2",
+  linenDark: "#EDE9E1",
+
   light: {
-    background: "#FAFAFA",
+    background: "#F9F7F2",
     surface: "#FFFFFF",
-    text: "#212121",
-    textSecondary: "#6B7280",
-    primary: "#1A237E",
-    accent: "#5281BD",
-    border: "#E5E7EB",
-    hover: "#1A237E",
-    tint: "#4A90E2",
-    tabIconDefault: "#1A237E",
-    tabIconSelected: "#1A237E",
+    text: "#1A1A1A",
+    textSecondary: "#71717A",
+    primary: "#E31B23",
+    accent: "#D97D20",
+    border: "transparent",
+    hover: "#E31B23",
+    tint: "#E31B23",
+    tabIconDefault: "#A1A1AA",
+    tabIconSelected: "#E31B23",
   },
 
   dark: {

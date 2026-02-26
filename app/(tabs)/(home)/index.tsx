@@ -212,7 +212,11 @@ export default function HomeScreen() {
 
       return (
         <TouchableOpacity
-          style={[styles.hymnRow, !hasAccess && styles.hymnRowLocked]}
+          style={[
+            styles.hymnRow,
+            isDark ? styles.hymnRowDark : styles.hymnRowLight,
+            !hasAccess && styles.hymnRowLocked,
+          ]}
           onPress={() => handleHymnPress(item)}
           activeOpacity={0.6}
         >
@@ -240,7 +244,7 @@ export default function HomeScreen() {
             <Lock size={14} color={colors.mutedGray} />
           )}
           {hasAccess && (
-            <ChevronRight size={16} color={isDark ? "#444" : "#CCC"} />
+            <ChevronRight size={16} color={isDark ? "#444" : "#C4C4C8"} />
           )}
         </TouchableOpacity>
       );
@@ -260,23 +264,23 @@ export default function HomeScreen() {
           activeOpacity={0.7}
         >
           <LinearGradient
-            colors={["#1A1A1D", "#252528"]}
+            colors={isDark ? ["#1A1A1D", "#252528"] : ["#FFFFFF", "#F5F3EE"]}
             style={styles.recentCardGradient}
           >
             <View style={styles.recentCardNumberContainer}>
               <Text style={styles.recentCardNumber}>{item.number}</Text>
             </View>
-            <Text style={styles.recentCardTitle} numberOfLines={2}>
+            <Text style={[styles.recentCardTitle, !isDark && { color: "#1A1A1A" }]} numberOfLines={2}>
               {displayTitle}
             </Text>
-            <Text style={styles.recentCardCategory} numberOfLines={1}>
+            <Text style={[styles.recentCardCategory, !isDark && { color: "#71717A" }]} numberOfLines={1}>
               {item.category ?? "Hymn"}
             </Text>
           </LinearGradient>
         </TouchableOpacity>
       );
     },
-    [language]
+    [language, isDark]
   );
 
   const renderCategoryCard = useCallback(
@@ -598,7 +602,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   containerLight: {
-    backgroundColor: colors.light.background,
+    backgroundColor: colors.linen,
   },
   containerDark: {
     backgroundColor: colors.dark.background,
@@ -666,7 +670,12 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   searchBoxLight: {
-    backgroundColor: "#F0F0F2",
+    backgroundColor: colors.light.surface,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 2,
   },
   searchBoxDark: {
     backgroundColor: colors.dark.surface,
@@ -774,7 +783,7 @@ const styles = StyleSheet.create({
     color: colors.mutedGray,
   },
   sectionContainer: {
-    marginBottom: 8,
+    marginBottom: 16,
   },
   sectionTitle: {
     fontSize: 19,
@@ -888,8 +897,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   sortPillLight: {
-    borderColor: colors.light.border,
+    borderColor: "transparent",
     backgroundColor: colors.light.surface,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.04,
+    shadowRadius: 6,
+    elevation: 1,
   },
   sortPillDark: {
     borderColor: colors.dark.border,
@@ -902,9 +916,23 @@ const styles = StyleSheet.create({
   hymnRow: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 14,
+    marginHorizontal: 20,
+    marginBottom: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
     gap: 14,
+    borderRadius: 14,
+  },
+  hymnRowDark: {
+    backgroundColor: "transparent",
+  },
+  hymnRowLight: {
+    backgroundColor: colors.light.surface,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 2,
   },
   hymnRowLocked: {
     opacity: 0.5,
@@ -935,7 +963,7 @@ const styles = StyleSheet.create({
   },
   hymnRowCategory: {
     fontSize: 13,
-    color: colors.mutedGray,
+    color: "#71717A",
   },
   lockedText: {
     opacity: 0.7,
@@ -947,13 +975,13 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   textDark: {
-    color: colors.light.text,
+    color: "#1A1A1A",
   },
   textMuted: {
     color: colors.dark.textSecondary,
   },
   textMutedLight: {
-    color: colors.light.textSecondary,
+    color: "#71717A",
   },
   modalOverlay: {
     flex: 1,
@@ -970,22 +998,12 @@ const styles = StyleSheet.create({
     maxWidth: 340,
   },
   modalContentLight: {
-    backgroundColor: colors.white,
-    ...Platform.select({
-      ios: {
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.2,
-        shadowRadius: 20,
-      },
-      android: { elevation: 10 },
-      web: {
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.2,
-        shadowRadius: 20,
-      },
-    }),
+    backgroundColor: colors.light.surface,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.08,
+    shadowRadius: 24,
+    elevation: 10,
   },
   modalContentDark: {
     backgroundColor: colors.dark.surface,
@@ -1020,8 +1038,8 @@ const styles = StyleSheet.create({
     gap: 8,
     backgroundColor: colors.crimson,
     width: "100%",
-    height: 50,
-    borderRadius: 25,
+    height: 52,
+    borderRadius: 14,
     marginBottom: 10,
   },
   modalSignInButtonText: {
@@ -1031,16 +1049,16 @@ const styles = StyleSheet.create({
   },
   modalCreateButton: {
     width: "100%",
-    height: 50,
-    borderRadius: 25,
+    height: 52,
+    borderRadius: 14,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
     marginBottom: 10,
   },
   modalCreateButtonLight: {
-    borderColor: colors.light.border,
-    backgroundColor: colors.light.background,
+    borderColor: "#E4E4E7",
+    backgroundColor: colors.linen,
   },
   modalCreateButtonDark: {
     borderColor: "rgba(255, 255, 255, 0.2)",

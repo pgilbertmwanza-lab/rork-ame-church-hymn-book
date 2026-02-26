@@ -84,7 +84,7 @@ export default function FavoritesTabScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  containerLight: { backgroundColor: colors.light.background },
+  containerLight: { backgroundColor: colors.linen },
   containerDark: { backgroundColor: colors.dark.background },
   header: { paddingHorizontal: 20, paddingTop: 8, paddingBottom: 12 },
   headerTitle: { fontSize: 28, fontWeight: "800" as const, letterSpacing: -0.5 },
@@ -92,9 +92,18 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 14,
+    marginHorizontal: 20,
+    marginBottom: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
     gap: 14,
+    borderRadius: 14,
+    backgroundColor: colors.light.surface,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 2,
   },
   badge: {
     width: 38,
@@ -107,9 +116,9 @@ const styles = StyleSheet.create({
   badgeText: { color: "#fff", fontSize: 14, fontWeight: "800" as const },
   info: { flex: 1 },
   title: { fontSize: 15, fontWeight: "600" as const, marginBottom: 2 },
-  category: { fontSize: 13, color: colors.mutedGray },
+  category: { fontSize: 13, color: "#71717A" },
   textWhite: { color: "#FFFFFF" },
-  textDarkColor: { color: colors.light.text },
+  textDarkColor: { color: "#1A1A1A" },
   emptyState: {
     flex: 1,
     justifyContent: "center",

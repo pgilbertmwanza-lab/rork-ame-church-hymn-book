@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   containerLight: {
-    backgroundColor: colors.light.background,
+    backgroundColor: colors.linen,
   },
   containerDark: {
     backgroundColor: colors.dark.background,
@@ -121,8 +121,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   languageButtonLight: {
-    borderColor: "#0d1b2a",
-    backgroundColor: "#0d1b2a",
+    borderColor: "transparent",
+    backgroundColor: colors.light.surface,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.04,
+    shadowRadius: 6,
+    elevation: 1,
   },
   languageButtonDark: {
     borderColor: colors.dark.border,
@@ -136,7 +141,7 @@ const styles = StyleSheet.create({
   languageButtonText: {
     fontSize: 16,
     fontWeight: "600" as const,
-    color: colors.white,
+    color: "#71717A",
   },
   languageButtonTextDark: {
     color: colors.dark.textSecondary,
@@ -158,7 +163,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   textLight: {
-    color: colors.light.text,
+    color: "#1A1A1A",
   },
   textDark: {
     color: colors.dark.text,

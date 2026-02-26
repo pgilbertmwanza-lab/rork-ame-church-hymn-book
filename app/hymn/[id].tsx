@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   containerLight: {
-    backgroundColor: colors.light.background,
+    backgroundColor: colors.linen,
   },
   containerDark: {
     backgroundColor: colors.dark.background,
@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.crimson,
     paddingHorizontal: 32,
     paddingVertical: 16,
-    borderRadius: 28,
+    borderRadius: 14,
     width: "100%",
     maxWidth: 280,
     marginBottom: 12,
@@ -333,15 +333,15 @@ const styles = StyleSheet.create({
   createAccountButton: {
     paddingHorizontal: 32,
     paddingVertical: 14,
-    borderRadius: 28,
+    borderRadius: 14,
     width: "100%",
     maxWidth: 280,
     alignItems: "center",
     borderWidth: 1,
   },
   createAccountButtonLight: {
-    borderColor: colors.light.border,
-    backgroundColor: colors.light.background,
+    borderColor: "#E4E4E7",
+    backgroundColor: colors.light.surface,
   },
   createAccountButtonDark: {
     borderColor: "rgba(255, 255, 255, 0.25)",
@@ -357,13 +357,13 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   textLight: {
-    color: colors.light.text,
+    color: "#1A1A1A",
   },
   textDark: {
     color: colors.dark.text,
   },
   subtextLight: {
-    color: colors.light.textSecondary,
+    color: "#71717A",
   },
   subtextDark: {
     color: colors.dark.textSecondary,
@@ -382,8 +382,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   languageButtonLight: {
-    borderColor: "#0d1b2a",
-    backgroundColor: "#0d1b2a",
+    borderColor: "transparent",
+    backgroundColor: colors.light.surface,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.04,
+    shadowRadius: 6,
+    elevation: 1,
   },
   languageButtonDark: {
     borderColor: colors.dark.border,
@@ -397,7 +402,7 @@ const styles = StyleSheet.create({
   languageButtonText: {
     fontSize: 16,
     fontWeight: "600" as const,
-    color: colors.white,
+    color: "#71717A",
   },
   languageButtonTextDark: {
     color: colors.dark.textSecondary,

@@ -197,22 +197,22 @@ export default function SettingsTabScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  containerLight: { backgroundColor: colors.light.background },
+  containerLight: { backgroundColor: colors.linen },
   containerDark: { backgroundColor: colors.dark.background },
   scrollContent: { paddingBottom: 100 },
   header: { paddingHorizontal: 20, paddingTop: 8, paddingBottom: 4 },
   headerTitle: { fontSize: 28, fontWeight: "800" as const, letterSpacing: -0.5 },
   section: { paddingHorizontal: 20, marginBottom: 24 },
   sectionTitle: { fontSize: 16, fontWeight: "600" as const, marginBottom: 12 },
-  card: { borderRadius: 12, padding: 16 },
+  card: { borderRadius: 14, padding: 16 },
   cardLight: {
     backgroundColor: colors.light.surface,
-    borderWidth: 1,
-    borderColor: colors.light.border,
+    borderWidth: 0,
+    borderColor: "transparent",
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
-    shadowRadius: 3,
+    shadowRadius: 10,
     elevation: 2,
   },
   cardDark: {
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     gap: 8,
     backgroundColor: colors.crimson,
     paddingVertical: 12,
-    borderRadius: 24,
+    borderRadius: 14,
   },
   settingsSignInText: { color: colors.white, fontSize: 15, fontWeight: "600" as const },
   settingRow: {
@@ -273,12 +273,12 @@ const styles = StyleSheet.create({
   fontSizeButton: {
     paddingHorizontal: 16,
     paddingVertical: 8,
-    borderRadius: 8,
-    borderWidth: 1,
+    borderRadius: 12,
+    borderWidth: 0,
   },
   fontSizeButtonLight: {
-    borderColor: colors.light.border,
-    backgroundColor: colors.light.background,
+    borderColor: "transparent",
+    backgroundColor: colors.linen,
   },
   fontSizeButtonDark: {
     borderColor: colors.dark.border,
@@ -289,7 +289,14 @@ const styles = StyleSheet.create({
   fontSizeButtonTextDark: { color: colors.dark.text },
   fontSizeButtonTextActive: { color: colors.white },
   signOutCard: { flexDirection: "row", alignItems: "center", gap: 12 },
-  signOutCardLight: { backgroundColor: "#fff1f0" },
+  signOutCardLight: {
+    backgroundColor: "#fff1f0",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 2,
+  },
   signOutCardDark: {
     backgroundColor: "rgba(227, 27, 35, 0.1)",
     borderWidth: 1,
@@ -298,8 +305,8 @@ const styles = StyleSheet.create({
   signOutText: { fontSize: 16, fontWeight: "600" as const, color: colors.error },
   footer: { alignItems: "center", paddingVertical: 24 },
   footerText: { fontSize: 14 },
-  textLight: { color: colors.light.text },
+  textLight: { color: "#1A1A1A" },
   textDark: { color: colors.dark.text },
-  subtextLight: { color: colors.light.textSecondary },
+  subtextLight: { color: "#71717A" },
   subtextDark: { color: colors.dark.textSecondary },
 });

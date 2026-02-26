@@ -12,14 +12,14 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: isDark ? "#E31B23" : "#1A237E",
-        tabBarInactiveTintColor: isDark ? "#555" : "#9CA3AF",
+        tabBarActiveTintColor: isDark ? "#E31B23" : "#E31B23",
+        tabBarInactiveTintColor: isDark ? "#555" : "#A1A1AA",
         tabBarStyle: Platform.OS === "web"
           ? {
               backgroundColor: isDark
                 ? "rgba(10, 10, 11, 0.92)"
-                : "rgba(255, 255, 255, 0.88)",
-              borderTopColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)",
+                : "rgba(237, 233, 225, 0.85)",
+              borderTopColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.04)",
               borderTopWidth: StyleSheet.hairlineWidth,
             }
           : {
@@ -33,8 +33,8 @@ export default function TabLayout() {
           Platform.OS !== "web" ? (
             <BlurView
               tint={isDark ? "dark" : "light"}
-              intensity={90}
-              style={StyleSheet.absoluteFill}
+              intensity={isDark ? 90 : 80}
+              style={[StyleSheet.absoluteFill, !isDark && { backgroundColor: "rgba(237, 233, 225, 0.6)" }]}
             />
           ) : null,
         tabBarLabelStyle: {
