@@ -77,6 +77,8 @@ function RootLayoutNav() {
       <Stack.Screen name="settings" options={{ headerShown: false }} />
       <Stack.Screen name="hymn/[id]" options={{ headerShown: false }} />
       <Stack.Screen name="favorites" options={{ headerShown: false }} />
+      <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+      <Stack.Screen name="+not-found" />
     </Stack>
   );
 }
