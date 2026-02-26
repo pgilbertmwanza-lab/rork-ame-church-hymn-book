@@ -149,16 +149,16 @@ export default function SettingsScreen() {
                     key={size}
                     style={[
                       styles.fontSizeButton,
-                      fontSize === size && styles.fontSizeButtonActive,
                       isDark ? styles.fontSizeButtonDark : styles.fontSizeButtonLight,
+                      fontSize === size && styles.fontSizeButtonActive,
                     ]}
                     onPress={() => updateFontSize(size)}
                   >
                     <Text
                       style={[
                         styles.fontSizeButtonText,
+                        isDark ? styles.fontSizeButtonTextDark : styles.fontSizeButtonTextLight,
                         fontSize === size && styles.fontSizeButtonTextActive,
-                        isDark && fontSize !== size && styles.fontSizeButtonTextDark,
                       ]}
                     >
                       {fontSizeLabels[size]}
@@ -342,8 +342,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   fontSizeButtonLight: {
-    borderColor: colors.light.border,
-    backgroundColor: colors.light.background,
+    borderColor: "transparent",
+    backgroundColor: "#F3F4F6",
   },
   fontSizeButtonDark: {
     borderColor: colors.dark.border,
@@ -356,13 +356,16 @@ const styles = StyleSheet.create({
   fontSizeButtonText: {
     fontSize: 14,
     fontWeight: "500" as const,
-    color: colors.mediumGray,
+  },
+  fontSizeButtonTextLight: {
+    color: "#4B5563",
   },
   fontSizeButtonTextDark: {
-    color: colors.dark.text,
+    color: colors.dark.textSecondary,
   },
   fontSizeButtonTextActive: {
-    color: colors.white,
+    color: "#FFFFFF",
+    fontWeight: "700" as const,
   },
   signOutCard: {
     flexDirection: "row",
@@ -379,8 +382,8 @@ const styles = StyleSheet.create({
   },
   signOutText: {
     fontSize: 16,
-    fontWeight: "600" as const,
-    color: colors.error,
+    fontWeight: "700" as const,
+    color: "#B91C1C",
   },
   footer: {
     alignItems: "center",

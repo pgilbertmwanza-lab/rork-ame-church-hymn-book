@@ -235,7 +235,7 @@ export default function HomeScreen() {
               {displayTitle}
             </Text>
             {!!item.category && (
-              <Text style={[styles.hymnRowCategory, !hasAccess && styles.lockedSubtext]}>
+              <Text style={[styles.hymnRowCategory, isDark ? styles.hymnRowCategoryDark : styles.hymnRowCategoryLight, !hasAccess && styles.lockedSubtext]}>
                 {item.category}
               </Text>
             )}
@@ -364,7 +364,7 @@ export default function HomeScreen() {
             <TextInput
               style={[styles.searchInput, isDark ? styles.searchInputDark : styles.searchInputLight]}
               placeholder="Search hymns by title, number, or lyrics..."
-              placeholderTextColor={colors.mutedGray}
+              placeholderTextColor="#9CA3AF"
               value={searchQuery}
               onChangeText={setSearchQuery}
               autoFocus={showSearch}
@@ -780,7 +780,7 @@ const styles = StyleSheet.create({
   previewBannerText: {
     fontSize: 12,
     fontWeight: "600" as const,
-    color: colors.mutedGray,
+    color: "#D1D5DB",
   },
   sectionContainer: {
     marginBottom: 16,
@@ -963,7 +963,12 @@ const styles = StyleSheet.create({
   },
   hymnRowCategory: {
     fontSize: 13,
+  },
+  hymnRowCategoryLight: {
     color: "#71717A",
+  },
+  hymnRowCategoryDark: {
+    color: "#9CA3AF",
   },
   lockedText: {
     opacity: 0.7,

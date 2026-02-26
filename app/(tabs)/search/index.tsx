@@ -40,7 +40,7 @@ export default function SearchScreen() {
 
       return (
         <TouchableOpacity
-          style={[styles.row, !hasAccess && styles.rowLocked]}
+          style={[styles.row, isDark ? styles.rowDark : styles.rowLight, !hasAccess && styles.rowLocked]}
           onPress={() => {
             if (hasAccess) {
               router.push(`/hymn/${item.id}` as any);
@@ -58,7 +58,7 @@ export default function SearchScreen() {
             >
               {displayTitle}
             </Text>
-            {!!item.category && <Text style={styles.category}>{item.category}</Text>}
+            {!!item.category && <Text style={[styles.category, isDark ? styles.categoryDark : styles.categoryLight]}>{item.category}</Text>}
           </View>
           {!hasAccess ? (
             <Lock size={14} color={colors.mutedGray} />
@@ -88,9 +88,9 @@ export default function SearchScreen() {
         <View style={[styles.searchBox, isDark ? styles.searchBoxDark : styles.searchBoxLight]}>
           <SearchIcon size={18} color={colors.mutedGray} />
           <TextInput
-            style={[styles.searchInput, isDark ? { color: "#fff" } : { color: "#212121" }]}
+            style={[styles.searchInput, isDark && styles.searchInputDark]}
             placeholder="Search by title, number, or category..."
-            placeholderTextColor={colors.mutedGray}
+            placeholderTextColor={isDark ? "#9CA3AF" : "#9CA3AF"}
             value={searchQuery}
             onChangeText={setSearchQuery}
           />
@@ -157,7 +157,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.dark.border,
   },
-  searchInput: { flex: 1, fontSize: 15 },
+  searchInput: { flex: 1, fontSize: 15, color: "#1A1A1A" },
+  searchInputDark: { color: "#FFFFFF" },
   listContent: { paddingBottom: 100 },
   row: {
     flexDirection: "row",
@@ -168,12 +169,19 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     gap: 14,
     borderRadius: 14,
+  },
+  rowLight: {
     backgroundColor: colors.light.surface,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
     shadowRadius: 10,
     elevation: 2,
+  },
+  rowDark: {
+    backgroundColor: colors.dark.surface,
+    borderWidth: 1,
+    borderColor: colors.dark.border,
   },
   rowLocked: { opacity: 0.5 },
   badge: {
@@ -188,7 +196,9 @@ const styles = StyleSheet.create({
   badgeText: { color: "#fff", fontSize: 14, fontWeight: "800" as const },
   info: { flex: 1 },
   title: { fontSize: 15, fontWeight: "600" as const, marginBottom: 2 },
-  category: { fontSize: 13, color: "#71717A" },
+  category: { fontSize: 13 },
+  categoryLight: { color: "#71717A" },
+  categoryDark: { color: "#9CA3AF" },
   textWhite: { color: "#FFFFFF" },
   textDarkColor: { color: "#1A1A1A" },
   emptyState: {
