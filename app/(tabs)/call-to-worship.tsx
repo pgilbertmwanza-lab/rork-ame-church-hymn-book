@@ -19,7 +19,7 @@ import { useApp } from "@/contexts/app-context";
 type Language = "english" | "bemba";
 
 export default function CallToWorshipScreen() {
-  const { isDarkMode: isDark } = useApp();
+  const { isDarkMode: isDark, textScale } = useApp();
   const [language, setLanguage] = useState<Language>("english");
 
   const content =
@@ -80,10 +80,10 @@ export default function CallToWorshipScreen() {
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {content.map((line, index) => (
           <View key={index} style={styles.lineContainer}>
-            <Text style={[styles.role, isDark ? styles.roleDark : styles.roleLight]}>
+            <Text style={[styles.role, isDark ? styles.roleDark : styles.roleLight, { fontSize: Math.round(16 * textScale) }]}>
               {line.role}
             </Text>
-            <Text style={[styles.text, isDark ? styles.textDark : styles.textLight]}>
+            <Text style={[styles.text, isDark ? styles.textDark : styles.textLight, { fontSize: Math.round(17 * textScale), lineHeight: Math.round(28 * textScale) }]}>
               {line.text}
             </Text>
           </View>
@@ -139,9 +139,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dark.surface,
   },
   languageButtonActive: {
-    backgroundColor: colors.crimson,
-    borderColor: colors.crimson,
-    opacity: 1,
+    backgroundColor: "#E31B23",
+    borderColor: "#E31B23",
   },
   languageButtonText: {
     fontSize: 16,

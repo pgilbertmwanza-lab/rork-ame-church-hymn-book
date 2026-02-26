@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Home, Search, Heart, Settings, Church, ScrollText } from "lucide-react-native";
+import { Home, Search, Settings, Church, ScrollText } from "lucide-react-native";
 import React from "react";
 import { Platform, StyleSheet } from "react-native";
 import { BlurView } from "expo-blur";
@@ -12,7 +12,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: isDark ? "#E31B23" : "#E31B23",
+        tabBarActiveTintColor: "#E31B23",
         tabBarInactiveTintColor: isDark ? "#555" : "#A1A1AA",
         tabBarStyle: Platform.OS === "web"
           ? {
@@ -67,10 +67,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="favorites"
+        name="apostles-creed"
         options={{
-          title: "Favorites",
-          tabBarIcon: ({ color, size }) => <Heart size={size - 2} color={color} strokeWidth={1.8} />,
+          title: "Creed",
+          tabBarIcon: ({ color, size }) => <ScrollText size={size - 2} color={color} strokeWidth={1.8} />,
         }}
       />
       <Tabs.Screen
@@ -81,10 +81,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="apostles-creed"
+        name="favorites"
         options={{
-          title: "Creed",
-          tabBarIcon: ({ color, size }) => <ScrollText size={size - 2} color={color} strokeWidth={1.8} />,
+          href: null,
         }}
       />
     </Tabs>

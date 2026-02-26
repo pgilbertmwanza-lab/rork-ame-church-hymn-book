@@ -86,6 +86,7 @@ export default function HomeScreen() {
     canAccessHymn,
     isDarkMode: isDark,
     language,
+    textScale,
     toggleLanguage,
     recentHymns,
   } = useApp();
@@ -327,10 +328,10 @@ export default function HomeScreen() {
       <View>
         <View style={styles.greetingRow}>
           <View>
-            <Text style={[styles.greetingText, isDark ? styles.textMuted : styles.textMutedLight]}>
+            <Text style={[styles.greetingText, isDark ? styles.textWhite : styles.textDark]}>
               {greeting}
             </Text>
-            <Text style={[styles.greetingTitle, isDark ? styles.textWhite : styles.textDark]}>
+            <Text style={styles.greetingTitle}>
               AME Church Hymns
             </Text>
           </View>
@@ -613,26 +614,26 @@ const styles = StyleSheet.create({
   greetingRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "flex-start",
+    alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 8,
+    paddingTop: 24,
     paddingBottom: 16,
   },
   greetingText: {
-    fontSize: 14,
-    fontWeight: "500" as const,
+    fontSize: 28,
+    fontWeight: "700" as const,
+    letterSpacing: -0.5,
     marginBottom: 2,
   },
   greetingTitle: {
-    fontSize: 24,
-    fontWeight: "800" as const,
-    letterSpacing: -0.5,
+    fontSize: 14,
+    fontWeight: "600" as const,
+    color: "#E31B23",
   },
   headerActions: {
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
-    paddingTop: 4,
   },
   iconBtn: {
     width: 36,

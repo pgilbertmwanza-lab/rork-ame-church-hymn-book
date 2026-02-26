@@ -3,7 +3,7 @@ import createContextHook from "@nkzw/create-context-hook";
 import { useEffect, useState, useMemo, useCallback } from "react";
 
 import { HYMNS, FREE_PREVIEW_COUNT } from "@/mocks/hymns";
-import { FontSize } from "@/types/hymn";
+import { FontSize, TEXT_SCALE_FACTORS } from "@/types/hymn";
 
 import { useAuth } from "./auth-context";
 
@@ -115,10 +115,13 @@ export const [AppContext, useApp] = createContextHook(() => {
     return HYMNS.filter((hymn) => favorites.has(hymn.id));
   }, [favorites]);
 
+  const textScale = TEXT_SCALE_FACTORS[fontSize];
+
   return {
     isMember,
     favorites,
     fontSize,
+    textScale,
     isDarkMode,
     language,
     isLoadingAppState,

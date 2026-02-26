@@ -19,7 +19,7 @@ type Language = "english" | "bemba";
 
 export default function HymnDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { fontSize, favorites, toggleFavorite, canAccessHymn, isDarkMode: isDark, addRecentlyViewed } = useApp();
+  const { fontSize, textScale, favorites, toggleFavorite, canAccessHymn, isDarkMode: isDark, addRecentlyViewed } = useApp();
   const [language, setLanguage] = useState<Language>("english");
 
   const hymn = HYMNS.find((h) => h.id === id);
@@ -47,12 +47,8 @@ export default function HymnDetailScreen() {
   const hasAccess = canAccessHymn(hymn.number);
   const isFavorite = favorites.has(hymn.id);
 
-  const fontSizeValues = {
-    small: 14,
-    medium: 16,
-    large: 18,
-    xlarge: 20,
-  };
+  const scaledFontSize = Math.round(16 * textScale);
+  const scaledLineHeight = Math.round(28 * textScale);
 
   return (
     <SafeAreaView
@@ -182,7 +178,7 @@ export default function HymnDetailScreen() {
                       key={lineIndex}
                       style={[
                         styles.verseText,
-                        { fontSize: fontSizeValues[fontSize] },
+                        { fontSize: scaledFontSize, lineHeight: scaledLineHeight },
                         isDark ? styles.textDark : styles.textLight,
                       ]}
                     >

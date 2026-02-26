@@ -19,7 +19,7 @@ import { useApp } from "@/contexts/app-context";
 type Language = "english" | "bemba";
 
 export default function ApostlesCreedScreen() {
-  const { isDarkMode: isDark } = useApp();
+  const { isDarkMode: isDark, textScale } = useApp();
   const [language, setLanguage] = useState<Language>("english");
 
   const content =
@@ -79,7 +79,7 @@ export default function ApostlesCreedScreen() {
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.creedCard}>
-          <Text style={[styles.creedText, isDark ? styles.textDark : styles.textLight]}>
+          <Text style={[styles.creedText, isDark ? styles.textDark : styles.textLight, { fontSize: Math.round(19 * textScale), lineHeight: Math.round(34 * textScale) }]}>
             {content}
           </Text>
         </View>
@@ -134,9 +134,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dark.surface,
   },
   languageButtonActive: {
-    backgroundColor: colors.crimson,
-    borderColor: colors.crimson,
-    opacity: 1,
+    backgroundColor: "#E31B23",
+    borderColor: "#E31B23",
   },
   languageButtonText: {
     fontSize: 16,
