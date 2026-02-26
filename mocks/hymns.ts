@@ -4130,20 +4130,6 @@ export const HYMNS: Hymn[] = [
     ],
   },
   {
-    id: "264",
-    number: 264,
-    title: "Mwe umfweni imbila nsuma",
-    titleBemba: "Mwe umfweni imbila nsuma",
-    category: "Gospel",
-    verses: [],
-    versesBemba: [
-      "Mwe umfweni imbila nsuma.\nKale twali abaluba:\nYesu afumine ku mulu.\nCine atupuswise.",
-      "Mutupuswise ni nani?\nCinecine Mwana Lesa\nMusango nshi? Atanikwe\nNikwi aya? Ni ku mulu\nEkwa letupapatila",
-      "Takwali umbi kutufwila,\nNelyo bamalaika\nUwatanikwe pa lupanda\nE Mwana wakwa Lusa.",
-      "Iso sumine muntu ali\nNo kumufukamina\nElyo ukumfweo luse lwakwe\nCine akakutula.\nAmen"
-    ],
-  },
-  {
     id: "266",
     number: 266,
     title: "Ndemikabila Yaweh",
