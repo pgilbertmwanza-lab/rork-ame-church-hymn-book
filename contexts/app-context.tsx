@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import createContextHook from "@nkzw/create-context-hook";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 
 import { HYMNS, FREE_PREVIEW_COUNT } from "@/mocks/hymns";
 import { FontSize } from "@/types/hymn";
@@ -9,12 +9,13 @@ import { useAuth } from "./auth-context";
 
 export const [AppContext, useApp] = createContextHook(() => {
   const { user, deviceId } = useAuth();
-  const [isPaid, setIsPaid] = useState(false);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [fontSize, setFontSize] = useState<FontSize>("medium");
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [language, setLanguage] = useState<"english" | "bemba">("english");
   const [isLoadingAppState, setIsLoadingAppState] = useState(true);
+
+  const isMember = !!user;
 
   useEffect(() => {
     loadAppState();
@@ -22,11 +23,10 @@ export const [AppContext, useApp] = createContextHook(() => {
 
   const loadAppState = async () => {
     try {
-      const [favoritesStr, fontSizeStr, darkModeStr, paidStr, languageStr] = await Promise.all([
+      const [favoritesStr, fontSizeStr, darkModeStr, languageStr] = await Promise.all([
         AsyncStorage.getItem("favorites"),
         AsyncStorage.getItem("fontSize"),
         AsyncStorage.getItem("isDarkMode"),
-        AsyncStorage.getItem("isPaid"),
         AsyncStorage.getItem("language"),
       ]);
 
@@ -39,9 +39,6 @@ export const [AppContext, useApp] = createContextHook(() => {
       if (darkModeStr) {
         setIsDarkMode(darkModeStr === "true");
       }
-      if (paidStr) {
-        setIsPaid(paidStr === "true");
-      }
       if (languageStr) {
         setLanguage(languageStr as "english" | "bemba");
       }
@@ -52,7 +49,7 @@ export const [AppContext, useApp] = createContextHook(() => {
     }
   };
 
-  const toggleFavorite = async (hymnId: string) => {
+  const toggleFavorite = useCallback(async (hymnId: string) => {
     const newFavorites = new Set(favorites);
     if (newFavorites.has(hymnId)) {
       newFavorites.delete(hymnId);
@@ -61,49 +58,44 @@ export const [AppContext, useApp] = createContextHook(() => {
     }
     setFavorites(newFavorites);
     await AsyncStorage.setItem("favorites", JSON.stringify([...newFavorites]));
-  };
+  }, [favorites]);
 
-  const updateFontSize = async (size: FontSize) => {
+  const updateFontSize = useCallback(async (size: FontSize) => {
     console.log("Updating font size to:", size);
     setFontSize(size);
     await AsyncStorage.setItem("fontSize", size);
     console.log("Font size updated and saved to AsyncStorage");
-  };
+  }, []);
 
-  const toggleDarkMode = async () => {
+  const toggleDarkMode = useCallback(async () => {
     const newValue = !isDarkMode;
     setIsDarkMode(newValue);
     await AsyncStorage.setItem("isDarkMode", String(newValue));
-  };
+  }, [isDarkMode]);
 
-  const toggleLanguage = async () => {
+  const toggleLanguage = useCallback(async () => {
     const newValue = language === "english" ? "bemba" : "english";
     setLanguage(newValue);
     await AsyncStorage.setItem("language", newValue);
-  };
-
-  const unlockApp = async () => {
-    setIsPaid(true);
-    await AsyncStorage.setItem("isPaid", "true");
-  };
+  }, [language]);
 
   const availableHymns = useMemo(() => {
-    if (isPaid) {
+    if (isMember) {
       return HYMNS;
     }
     return HYMNS.slice(0, FREE_PREVIEW_COUNT);
-  }, [isPaid]);
+  }, [isMember]);
 
-  const canAccessHymn = (hymnNumber: number) => {
-    return isPaid || hymnNumber <= FREE_PREVIEW_COUNT;
-  };
+  const canAccessHymn = useCallback((hymnNumber: number) => {
+    return isMember || hymnNumber <= FREE_PREVIEW_COUNT;
+  }, [isMember]);
 
   const favoriteHymns = useMemo(() => {
     return HYMNS.filter((hymn) => favorites.has(hymn.id));
   }, [favorites]);
 
   return {
-    isPaid,
+    isMember,
     favorites,
     fontSize,
     isDarkMode,
@@ -117,6 +109,5 @@ export const [AppContext, useApp] = createContextHook(() => {
     updateFontSize,
     toggleDarkMode,
     toggleLanguage,
-    unlockApp,
   };
 });

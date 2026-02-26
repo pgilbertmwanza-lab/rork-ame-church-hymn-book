@@ -1,6 +1,6 @@
 import { router, Stack } from "expo-router";
-import { Search, Crown, Settings, Church, Languages, ArrowUpAZ, Hash } from "lucide-react-native";
-import React, { useState, useMemo } from "react";
+import { Search, Lock, Settings, Church, Languages, ArrowUpAZ, Hash, LogIn } from "lucide-react-native";
+import React, { useState, useMemo, useCallback } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
+  Modal,
+  Pressable,
+  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -19,9 +22,10 @@ import { HYMNS } from "@/mocks/hymns";
 type SortType = "numerical" | "alphabetical";
 
 export default function HomeScreen() {
-  const { isPaid, canAccessHymn, isDarkMode: isDark, language, toggleLanguage } = useApp();
+  const { isMember, canAccessHymn, isDarkMode: isDark, language, toggleLanguage } = useApp();
   const [searchQuery, setSearchQuery] = useState("");
   const [sortType, setSortType] = useState<SortType>("numerical");
+  const [showMembersModal, setShowMembersModal] = useState(false);
 
   const filteredHymns = useMemo(() => {
     let hymns = [...HYMNS];
@@ -51,35 +55,69 @@ export default function HomeScreen() {
     return hymns;
   }, [searchQuery, sortType, language]);
 
+  const handleHymnPress = useCallback((item: typeof HYMNS[0]) => {
+    const hasAccess = canAccessHymn(item.number);
+    if (hasAccess) {
+      router.push(`/hymn/${item.id}` as any);
+    } else {
+      setShowMembersModal(true);
+    }
+  }, [canAccessHymn]);
+
+  const handleSignIn = useCallback(() => {
+    setShowMembersModal(false);
+    router.push("/sign-in" as any);
+  }, []);
+
+  const handleCreateAccount = useCallback(() => {
+    setShowMembersModal(false);
+    Linking.openURL("https://districtrayac.web.app/");
+  }, []);
+
   const renderHymnItem = ({ item }: { item: typeof HYMNS[0] }) => {
     const hasAccess = canAccessHymn(item.number);
     const displayTitle = language === "bemba" && item.titleBemba ? item.titleBemba : item.title;
 
     return (
       <TouchableOpacity
-        style={[styles.hymnCard, isDark ? styles.hymnCardDark : styles.hymnCardLight]}
-        onPress={() => router.push(`/hymn/${item.id}` as any)}
-        disabled={!hasAccess}
+        style={[
+          styles.hymnCard,
+          isDark ? styles.hymnCardDark : styles.hymnCardLight,
+          !hasAccess && styles.hymnCardLocked,
+        ]}
+        onPress={() => handleHymnPress(item)}
       >
         <View style={styles.hymnCardContent}>
-          <View style={styles.hymnNumber}>
-            <Text style={[styles.hymnNumberText, isDark ? styles.textDark : styles.textLight]}>
+          <View style={[styles.hymnNumber, !hasAccess && styles.hymnNumberLocked]}>
+            <Text style={[styles.hymnNumberText, isDark ? styles.textDark : styles.textLight, !hasAccess && styles.hymnNumberTextLocked]}>
               {item.number}
             </Text>
           </View>
           <View style={styles.hymnInfo}>
-            <Text style={[styles.hymnTitle, isDark ? styles.textDark : styles.textLight]}>
+            <Text
+              style={[
+                styles.hymnTitle,
+                isDark ? styles.textDark : styles.textLight,
+                !hasAccess && styles.lockedText,
+              ]}
+            >
               {displayTitle}
             </Text>
             {item.category && (
-              <Text style={[styles.hymnCategory, isDark ? styles.subtextDark : styles.subtextLight]}>
+              <Text
+                style={[
+                  styles.hymnCategory,
+                  isDark ? styles.subtextDark : styles.subtextLight,
+                  !hasAccess && styles.lockedSubtext,
+                ]}
+              >
                 {item.category}
               </Text>
             )}
           </View>
           {!hasAccess && (
             <View style={styles.lockBadge}>
-              <Crown size={16} color={colors.warning} />
+              <Lock size={16} color={isDark ? "#555" : colors.mediumGray} />
             </View>
           )}
         </View>
@@ -119,10 +157,10 @@ export default function HomeScreen() {
               {language === "english" ? "EN" : "BE"}
             </Text>
           </TouchableOpacity>
-          {!isPaid && (
-            <TouchableOpacity style={styles.unlockButton} onPress={() => router.push("/unlock" as any)}>
-              <Crown size={18} color={colors.white} />
-              <Text style={styles.unlockButtonText}>Unlock</Text>
+          {!isMember && (
+            <TouchableOpacity style={styles.signInButton} onPress={() => router.push("/sign-in" as any)}>
+              <LogIn size={18} color={colors.white} />
+              <Text style={styles.signInButtonText}>Sign In</Text>
             </TouchableOpacity>
           )}
           <TouchableOpacity
@@ -164,10 +202,11 @@ export default function HomeScreen() {
         </View>
       </View>
 
-      {!isPaid && (
-        <View style={styles.previewBanner}>
-          <Text style={styles.previewBannerText}>
-            Viewing first 10 hymns • Unlock for full access
+      {!isMember && (
+        <View style={[styles.previewBanner, isDark ? styles.previewBannerDark : styles.previewBannerLight]}>
+          <Lock size={14} color={isDark ? colors.dark.textSecondary : colors.churchBlue} />
+          <Text style={[styles.previewBannerText, isDark ? styles.previewBannerTextDark : styles.previewBannerTextLight]}>
+            Viewing first 10 hymns · Sign in for the full library
           </Text>
         </View>
       )}
@@ -179,6 +218,50 @@ export default function HomeScreen() {
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
       />
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={showMembersModal}
+        onRequestClose={() => setShowMembersModal(false)}
+      >
+        <Pressable style={styles.modalOverlay} onPress={() => setShowMembersModal(false)}>
+          <View style={[styles.modalContent, isDark ? styles.modalContentDark : styles.modalContentLight]}>
+            <View style={styles.modalIconContainer}>
+              <Lock size={36} color={colors.churchBlue} />
+            </View>
+            <Text style={[styles.modalTitle, isDark ? styles.textDark : styles.textLight]}>
+              Members Only
+            </Text>
+            <Text style={[styles.modalBody, isDark ? styles.subtextDark : styles.subtextLight]}>
+              The full hymn library is available to registered members.
+            </Text>
+            <TouchableOpacity
+              style={styles.modalSignInButton}
+              onPress={handleSignIn}
+            >
+              <LogIn size={18} color={colors.white} />
+              <Text style={styles.modalSignInButtonText}>Sign In</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.modalCreateButton, isDark ? styles.modalCreateButtonDark : styles.modalCreateButtonLight]}
+              onPress={handleCreateAccount}
+            >
+              <Text style={[styles.modalCreateButtonText, isDark ? styles.textDark : styles.textLight]}>
+                Create Account
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.modalDismissButton}
+              onPress={() => setShowMembersModal(false)}
+            >
+              <Text style={[styles.modalDismissText, isDark ? styles.subtextDark : styles.subtextLight]}>
+                Maybe Later
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Pressable>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -256,12 +339,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "700" as const,
   },
-
-  unlockButton: {
+  signInButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colors.warning,
-    paddingHorizontal: 16,
+    backgroundColor: colors.churchBlue,
+    paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 20,
     gap: 6,
@@ -271,9 +353,9 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 3,
   },
-  unlockButtonText: {
+  signInButtonText: {
     color: colors.white,
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: "600" as const,
   },
   searchContainer: {
@@ -313,16 +395,31 @@ const styles = StyleSheet.create({
     color: colors.dark.text,
   },
   previewBanner: {
-    backgroundColor: colors.actionBlue,
-    paddingVertical: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    paddingVertical: 10,
     paddingHorizontal: 20,
+    marginHorizontal: 20,
     marginBottom: 8,
+    borderRadius: 10,
+  },
+  previewBannerLight: {
+    backgroundColor: "#E8EFF7",
+  },
+  previewBannerDark: {
+    backgroundColor: "rgba(82, 129, 189, 0.15)",
   },
   previewBannerText: {
-    color: colors.white,
-    fontSize: 14,
-    textAlign: "center",
+    fontSize: 13,
     fontWeight: "500" as const,
+  },
+  previewBannerTextLight: {
+    color: colors.churchBlue,
+  },
+  previewBannerTextDark: {
+    color: colors.dark.textSecondary,
   },
   listContent: {
     padding: 20,
@@ -346,6 +443,9 @@ const styles = StyleSheet.create({
   hymnCardDark: {
     backgroundColor: colors.dark.surface,
   },
+  hymnCardLocked: {
+    opacity: 0.6,
+  },
   hymnCardContent: {
     flexDirection: "row",
     alignItems: "center",
@@ -359,9 +459,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  hymnNumberLocked: {
+    backgroundColor: colors.mediumGray,
+  },
   hymnNumberText: {
     fontSize: 18,
     fontWeight: "700" as const,
+    color: colors.white,
+  },
+  hymnNumberTextLocked: {
     color: colors.white,
   },
   hymnInfo: {
@@ -377,6 +483,12 @@ const styles = StyleSheet.create({
   },
   lockBadge: {
     padding: 8,
+  },
+  lockedText: {
+    opacity: 0.7,
+  },
+  lockedSubtext: {
+    opacity: 0.5,
   },
   textLight: {
     color: colors.light.text,
@@ -420,5 +532,95 @@ const styles = StyleSheet.create({
   sortFloatingText: {
     fontSize: 12,
     fontWeight: "700" as const,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    borderRadius: 20,
+    padding: 28,
+    margin: 24,
+    alignItems: "center",
+    width: "85%",
+    maxWidth: 340,
+  },
+  modalContentLight: {
+    backgroundColor: colors.white,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  modalContentDark: {
+    backgroundColor: colors.dark.surface,
+  },
+  modalIconContainer: {
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    backgroundColor: "#E8EFF7",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 20,
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: "700" as const,
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  modalBody: {
+    fontSize: 15,
+    textAlign: "center",
+    lineHeight: 22,
+    marginBottom: 24,
+  },
+  modalSignInButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    backgroundColor: colors.churchBlue,
+    width: "100%",
+    height: 50,
+    borderRadius: 12,
+    marginBottom: 10,
+  },
+  modalSignInButtonText: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: "600" as const,
+  },
+  modalCreateButton: {
+    width: "100%",
+    height: 50,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    marginBottom: 10,
+  },
+  modalCreateButtonLight: {
+    borderColor: colors.light.border,
+    backgroundColor: colors.light.background,
+  },
+  modalCreateButtonDark: {
+    borderColor: colors.dark.border,
+    backgroundColor: colors.dark.background,
+  },
+  modalCreateButtonText: {
+    fontSize: 16,
+    fontWeight: "600" as const,
+  },
+  modalDismissButton: {
+    paddingVertical: 8,
+  },
+  modalDismissText: {
+    fontSize: 14,
+    fontWeight: "500" as const,
   },
 });

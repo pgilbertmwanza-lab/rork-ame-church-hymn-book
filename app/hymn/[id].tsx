@@ -1,5 +1,5 @@
 import { useLocalSearchParams, router, Stack } from "expo-router";
-import { Heart, ArrowLeft, Lock } from "lucide-react-native";
+import { Heart, ArrowLeft, Lock, LogIn } from "lucide-react-native";
 import React, { useState } from "react";
 import {
   View,
@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
+  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -61,16 +62,18 @@ export default function HymnDetailScreen() {
         >
           <ArrowLeft size={24} color={isDark ? colors.dark.text : colors.light.primary} />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.favoriteButton}
-          onPress={() => toggleFavorite(hymn.id)}
-        >
-          <Heart
-            size={24}
-            color={isFavorite ? colors.error : isDark ? colors.dark.text : colors.light.primary}
-            fill={isFavorite ? colors.error : "none"}
-          />
-        </TouchableOpacity>
+        {hasAccess && (
+          <TouchableOpacity
+            style={styles.favoriteButton}
+            onPress={() => toggleFavorite(hymn.id)}
+          >
+            <Heart
+              size={24}
+              color={isFavorite ? colors.error : isDark ? colors.dark.text : colors.light.primary}
+              fill={isFavorite ? colors.error : "none"}
+            />
+          </TouchableOpacity>
+        )}
       </View>
 
       {hasBembaVersion && hasAccess && (
@@ -116,18 +119,29 @@ export default function HymnDetailScreen() {
 
       {!hasAccess ? (
         <View style={styles.lockedContainer}>
-          <Lock size={64} color={isDark ? "#444" : colors.borderGray} />
+          <View style={styles.lockedIconContainer}>
+            <Lock size={48} color={colors.churchBlue} />
+          </View>
           <Text style={[styles.lockedTitle, isDark ? styles.textDark : styles.textLight]}>
-            Premium Content
+            Members Only
           </Text>
           <Text style={[styles.lockedText, isDark ? styles.subtextDark : styles.subtextLight]}>
-            This hymn is part of the full collection. Unlock to access all hymns.
+            The full hymn library is available to registered members.
           </Text>
           <TouchableOpacity
-            style={styles.unlockButtonLarge}
-            onPress={() => router.push("/unlock" as any)}
+            style={styles.signInButtonLarge}
+            onPress={() => router.push("/sign-in" as any)}
           >
-            <Text style={styles.unlockButtonLargeText}>Unlock Full Access</Text>
+            <LogIn size={20} color={colors.white} />
+            <Text style={styles.signInButtonLargeText}>Sign In</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.createAccountButton, isDark ? styles.createAccountButtonDark : styles.createAccountButtonLight]}
+            onPress={() => Linking.openURL("https://districtrayac.web.app/")}
+          >
+            <Text style={[styles.createAccountButtonText, isDark ? styles.textDark : styles.textLight]}>
+              Create Account
+            </Text>
           </TouchableOpacity>
         </View>
       ) : (
@@ -267,30 +281,67 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 40,
   },
+  lockedIconContainer: {
+    width: 88,
+    height: 88,
+    borderRadius: 44,
+    backgroundColor: "#E8EFF7",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 24,
+  },
   lockedTitle: {
     fontSize: 24,
     fontWeight: "700" as const,
-    marginTop: 24,
     marginBottom: 12,
   },
   lockedText: {
     fontSize: 16,
     textAlign: "center",
     marginBottom: 32,
+    lineHeight: 22,
   },
-  unlockButtonLarge: {
-    backgroundColor: colors.warning,
+  signInButtonLarge: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    backgroundColor: colors.churchBlue,
     paddingHorizontal: 32,
     paddingVertical: 16,
     borderRadius: 12,
+    width: "100%",
+    maxWidth: 280,
+    marginBottom: 12,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
   },
-  unlockButtonLargeText: {
+  signInButtonLargeText: {
     color: colors.white,
+    fontSize: 16,
+    fontWeight: "600" as const,
+  },
+  createAccountButton: {
+    paddingHorizontal: 32,
+    paddingVertical: 14,
+    borderRadius: 12,
+    width: "100%",
+    maxWidth: 280,
+    alignItems: "center",
+    borderWidth: 1,
+  },
+  createAccountButtonLight: {
+    borderColor: colors.light.border,
+    backgroundColor: colors.light.background,
+  },
+  createAccountButtonDark: {
+    borderColor: colors.dark.border,
+    backgroundColor: colors.dark.background,
+  },
+  createAccountButtonText: {
     fontSize: 16,
     fontWeight: "600" as const,
   },

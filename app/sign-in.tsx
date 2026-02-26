@@ -1,5 +1,5 @@
-import { Link, Stack } from "expo-router";
-import { BookOpen } from "lucide-react-native";
+import { Stack } from "expo-router";
+import { BookOpen, ExternalLink } from "lucide-react-native";
 import React, { useState } from "react";
 import {
   View,
@@ -11,6 +11,7 @@ import {
   Platform,
   ScrollView,
   ActivityIndicator,
+  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -19,7 +20,7 @@ import { useAuth } from "@/contexts/auth-context";
 
 export default function SignInScreen() {
   const { isDarkMode: isDark } = useApp();
-  const { signIn, signInWithGoogle, isSigningIn } = useAuth();
+  const { signIn, isSigningIn } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,7 +49,7 @@ export default function SignInScreen() {
               AME Church Hymns
             </Text>
             <Text style={[styles.subtitle, isDark ? styles.subtitleDark : styles.subtitleLight]}>
-              Sign in to continue
+              Sign in to access the full library
             </Text>
           </View>
 
@@ -90,8 +91,6 @@ export default function SignInScreen() {
               />
             </View>
 
-
-
             <TouchableOpacity
               style={[styles.button, styles.primaryButton, isSigningIn && styles.buttonDisabled]}
               onPress={handleSignIn}
@@ -106,7 +105,7 @@ export default function SignInScreen() {
 
             <View style={styles.divider}>
               <View style={[styles.dividerLine, isDark ? styles.dividerDark : styles.dividerLight]} />
-              <Text style={[styles.dividerText, isDark ? styles.textDark : styles.textLight]}>
+              <Text style={[styles.dividerText, isDark ? styles.subtextDark : styles.subtextLight]}>
                 or
               </Text>
               <View style={[styles.dividerLine, isDark ? styles.dividerDark : styles.dividerLight]} />
@@ -115,25 +114,20 @@ export default function SignInScreen() {
             <TouchableOpacity
               style={[
                 styles.button,
-                isDark ? styles.googleButtonDark : styles.googleButtonLight,
+                styles.createAccountButton,
+                isDark ? styles.createAccountButtonDark : styles.createAccountButtonLight,
               ]}
-              onPress={signInWithGoogle}
+              onPress={() => Linking.openURL("https://districtrayac.web.app/")}
             >
-              <Text style={[styles.googleButtonText, isDark ? styles.textDark : styles.textLight]}>
-                Continue with Google
+              <ExternalLink size={18} color={isDark ? "#fff" : "#212121"} />
+              <Text style={[styles.createAccountText, isDark ? styles.textDark : styles.textLight]}>
+                Create Account
               </Text>
             </TouchableOpacity>
 
-            <View style={styles.footer}>
-              <Text style={[styles.footerText, isDark ? styles.textDark : styles.textLight]}>
-                Don&apos;t have an account?{" "}
-              </Text>
-              <Link href={"/sign-up" as any} asChild>
-                <TouchableOpacity>
-                  <Text style={styles.linkText}>Sign Up</Text>
-                </TouchableOpacity>
-              </Link>
-            </View>
+            <Text style={[styles.helpText, isDark ? styles.subtextDark : styles.subtextLight]}>
+              New members can create an account on our website. After registering, return here to sign in.
+            </Text>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -179,6 +173,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
+    textAlign: "center",
   },
   subtitleLight: {
     color: "#6B7280",
@@ -245,9 +240,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600" as const,
   },
-  googleButtonLight: {
-    backgroundColor: "#fff",
+  createAccountButton: {
+    flexDirection: "row",
+    gap: 8,
     borderWidth: 1,
+  },
+  createAccountButtonLight: {
+    backgroundColor: "#fff",
     borderColor: "#E5E7EB",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
@@ -255,12 +254,11 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 1,
   },
-  googleButtonDark: {
+  createAccountButtonDark: {
     backgroundColor: "#2a2a2a",
-    borderWidth: 1,
     borderColor: "#444",
   },
-  googleButtonText: {
+  createAccountText: {
     fontSize: 16,
     fontWeight: "600" as const,
   },
@@ -283,19 +281,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     fontSize: 14,
   },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 24,
-  },
-  footerText: {
-    fontSize: 14,
-  },
-  linkText: {
-    fontSize: 14,
-    fontWeight: "600" as const,
-    color: "#1A237E",
+  helpText: {
+    fontSize: 13,
+    textAlign: "center",
+    lineHeight: 19,
+    marginTop: 8,
   },
   textLight: {
     color: "#212121",
@@ -303,10 +293,10 @@ const styles = StyleSheet.create({
   textDark: {
     color: "#fff",
   },
-  errorText: {
-    color: "#DC2626",
-    fontSize: 14,
-    marginBottom: 16,
-    textAlign: "center",
+  subtextDark: {
+    color: "#aaa",
+  },
+  subtextLight: {
+    color: "#6B7280",
   },
 });

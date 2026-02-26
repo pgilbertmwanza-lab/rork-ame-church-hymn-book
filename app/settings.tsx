@@ -1,5 +1,5 @@
-import { Stack } from "expo-router";
-import { Moon, Sun, Type, LogOut, User, ExternalLink } from "lucide-react-native";
+import { Stack, router } from "expo-router";
+import { Moon, Sun, Type, LogOut, User, ExternalLink, LogIn } from "lucide-react-native";
 import React from "react";
 import {
   View,
@@ -19,7 +19,7 @@ import { FontSize } from "@/types/hymn";
 
 export default function SettingsScreen() {
   const { user, signOut } = useAuth();
-  const { fontSize, updateFontSize, isDarkMode, toggleDarkMode, isPaid } = useApp();
+  const { fontSize, updateFontSize, isDarkMode, toggleDarkMode, isMember } = useApp();
   const isDark = isDarkMode;
 
   const fontSizes: FontSize[] = ["small", "medium", "large", "xlarge"];
@@ -48,40 +48,65 @@ export default function SettingsScreen() {
           <Text style={[styles.sectionTitle, isDark ? styles.textDark : styles.textLight]}>
             Account
           </Text>
-          <View style={[styles.card, isDark ? styles.cardDark : styles.cardLight]}>
-            <View style={styles.accountInfo}>
-              <View style={styles.avatar}>
-                <User size={24} color={colors.white} />
+          {isMember ? (
+            <>
+              <View style={[styles.card, isDark ? styles.cardDark : styles.cardLight]}>
+                <View style={styles.accountInfo}>
+                  <View style={styles.avatar}>
+                    <User size={24} color={colors.white} />
+                  </View>
+                  <View style={styles.accountDetails}>
+                    <Text style={[styles.accountName, isDark ? styles.textDark : styles.textLight]}>
+                      {user?.displayName || "User"}
+                    </Text>
+                    <Text style={[styles.accountEmail, isDark ? styles.subtextDark : styles.subtextLight]}>
+                      {user?.email}
+                    </Text>
+                    <View style={styles.statusBadge}>
+                      <Text style={styles.statusText}>Member</Text>
+                    </View>
+                  </View>
+                </View>
               </View>
-              <View style={styles.accountDetails}>
-                <Text style={[styles.accountName, isDark ? styles.textDark : styles.textLight]}>
-                  {user?.displayName || "User"}
-                </Text>
-                <Text style={[styles.accountEmail, isDark ? styles.subtextDark : styles.subtextLight]}>
-                  {user?.email}
-                </Text>
-                <View style={styles.statusBadge}>
-                  <Text style={styles.statusText}>
-                    {isPaid ? "Premium" : "Free Preview"}
+
+              <TouchableOpacity
+                style={[styles.card, isDark ? styles.cardDark : styles.cardLight, styles.cardMargin]}
+                onPress={() => Linking.openURL('https://districtrayac.web.app/')}
+              >
+                <View style={styles.settingRow}>
+                  <View style={styles.settingLeft}>
+                    <ExternalLink size={20} color={isDark ? colors.dark.text : colors.light.primary} />
+                    <Text style={[styles.settingLabel, isDark ? styles.textDark : styles.textLight]}>
+                      Manage Account
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </>
+          ) : (
+            <View style={[styles.card, isDark ? styles.cardDark : styles.cardLight]}>
+              <View style={styles.guestInfo}>
+                <View style={styles.guestAvatar}>
+                  <User size={24} color={colors.mediumGray} />
+                </View>
+                <View style={styles.guestDetails}>
+                  <Text style={[styles.accountName, isDark ? styles.textDark : styles.textLight]}>
+                    Guest
+                  </Text>
+                  <Text style={[styles.accountEmail, isDark ? styles.subtextDark : styles.subtextLight]}>
+                    Sign in for full library access
                   </Text>
                 </View>
               </View>
+              <TouchableOpacity
+                style={styles.settingsSignInButton}
+                onPress={() => router.push("/sign-in" as any)}
+              >
+                <LogIn size={16} color={colors.white} />
+                <Text style={styles.settingsSignInText}>Sign In</Text>
+              </TouchableOpacity>
             </View>
-          </View>
-
-          <TouchableOpacity
-            style={[styles.card, isDark ? styles.cardDark : styles.cardLight, styles.cardMargin]}
-            onPress={() => Linking.openURL('https://vibe.wix.com/projects/41d683fa-76d0-4b23-af46-d0062ae403d7/v/editor')}
-          >
-            <View style={styles.settingRow}>
-              <View style={styles.settingLeft}>
-                <ExternalLink size={20} color={isDark ? colors.dark.text : colors.light.primary} />
-                <Text style={[styles.settingLabel, isDark ? styles.textDark : styles.textLight]}>
-                  Manage Account
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
+          )}
         </View>
 
         <View style={styles.section}>
@@ -145,19 +170,21 @@ export default function SettingsScreen() {
           </View>
         </View>
 
-        <View style={styles.section}>
-          <TouchableOpacity
-            style={[
-              styles.card,
-              styles.signOutCard,
-              isDark ? styles.signOutCardDark : styles.signOutCardLight,
-            ]}
-            onPress={signOut}
-          >
-            <LogOut size={20} color={colors.error} />
-            <Text style={styles.signOutText}>Sign Out</Text>
-          </TouchableOpacity>
-        </View>
+        {isMember && (
+          <View style={styles.section}>
+            <TouchableOpacity
+              style={[
+                styles.card,
+                styles.signOutCard,
+                isDark ? styles.signOutCardDark : styles.signOutCardLight,
+              ]}
+              onPress={signOut}
+            >
+              <LogOut size={20} color={colors.error} />
+              <Text style={styles.signOutText}>Sign Out</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
         <View style={styles.footer}>
           <Text style={[styles.footerText, isDark ? styles.subtextDark : styles.subtextLight]}>
@@ -243,7 +270,7 @@ const styles = StyleSheet.create({
   },
   statusBadge: {
     alignSelf: "flex-start",
-    backgroundColor: colors.professionalBlue,
+    backgroundColor: colors.churchBlue,
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 12,
@@ -251,6 +278,37 @@ const styles = StyleSheet.create({
   statusText: {
     color: colors.white,
     fontSize: 12,
+    fontWeight: "600" as const,
+  },
+  guestInfo: {
+    flexDirection: "row",
+    gap: 16,
+    marginBottom: 14,
+  },
+  guestAvatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: colors.borderGray,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  guestDetails: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  settingsSignInButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    backgroundColor: colors.churchBlue,
+    paddingVertical: 12,
+    borderRadius: 10,
+  },
+  settingsSignInText: {
+    color: colors.white,
+    fontSize: 15,
     fontWeight: "600" as const,
   },
   settingRow: {

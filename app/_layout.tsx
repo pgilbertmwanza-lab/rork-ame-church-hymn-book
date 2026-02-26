@@ -1,11 +1,11 @@
-import { Stack, useRouter, useSegments } from "expo-router";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
 import { View, StyleSheet, Image, Animated, Platform, Text } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { AppContext, useApp } from "@/contexts/app-context";
-import { AuthContext, useAuth } from "@/contexts/auth-context";
+import { AuthContext } from "@/contexts/auth-context";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -56,30 +56,6 @@ function LoadingScreen() {
   );
 }
 
-function AuthGuard({ children }: { children: React.ReactNode }) {
-  const { user, isLoading } = useAuth();
-  const segments = useSegments();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (isLoading) return;
-
-    const inAuthGroup = segments[0] === "(tabs)";
-
-    if (!user && inAuthGroup) {
-      router.replace("/sign-in" as any);
-    } else if (user && !inAuthGroup && (segments[0] as string) !== "unlock" && (segments[0] as string) !== "hymn" && (segments[0] as string) !== "sign-in" && (segments[0] as string) !== "sign-up" && (segments[0] as string) !== "settings") {
-      router.replace("/");
-    }
-  }, [user, isLoading, segments, router]);
-
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
-
-  return <>{children}</>;
-}
-
 function RootLayoutNav() {
   const { isDarkMode } = useApp();
   
@@ -98,24 +74,9 @@ function RootLayoutNav() {
     >
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="sign-in" options={{ headerShown: false }} />
-      <Stack.Screen name="sign-up" options={{ headerShown: false }} />
       <Stack.Screen name="settings" options={{ headerShown: false }} />
       <Stack.Screen name="hymn/[id]" options={{ headerShown: false }} />
-      <Stack.Screen 
-        name="unlock" 
-        options={{ 
-          presentation: "modal", 
-          headerTitle: "Unlock Full Access",
-          headerStyle: {
-            backgroundColor: isDarkMode ? "#1a1a1a" : "#F9F7F0",
-          },
-          headerTintColor: isDarkMode ? "#fff" : "#315482",
-          headerTitleStyle: {
-            color: isDarkMode ? "#fff" : "#315482",
-            fontWeight: "600",
-          },
-        }} 
-      />
+      <Stack.Screen name="favorites" options={{ headerShown: false }} />
     </Stack>
   );
 }
@@ -196,9 +157,7 @@ export default function RootLayout() {
     <AuthContext>
       <AppContext>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <AuthGuard>
-            <RootLayoutNav />
-          </AuthGuard>
+          <RootLayoutNav />
         </GestureHandlerRootView>
       </AppContext>
     </AuthContext>
