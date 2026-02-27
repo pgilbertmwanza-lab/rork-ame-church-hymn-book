@@ -71,7 +71,7 @@ export default function SettingsScreen() {
 
               <TouchableOpacity
                 style={[styles.card, isDark ? styles.cardDark : styles.cardLight, styles.cardMargin]}
-                onPress={() => Linking.openURL('https://districtrayac.web.app/')}
+                onPress={() => Linking.openURL('https://17thdistrictrayac.org/hymn-book#unlock')}
               >
                 <View style={styles.settingRow}>
                   <View style={styles.settingLeft}>
