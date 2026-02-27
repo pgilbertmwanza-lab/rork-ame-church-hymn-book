@@ -4154,6 +4154,189 @@ export const HYMNS: Hymn[] = [
       "Kuli Lesa tuletota,\nIfintu fyonse atupa,\nToteni bonse mu mulu,\nWishi, Mwana, no Mupashi.\nAmen"
     ],
   },
+  {
+    id: "269",
+    number: 269,
+    title: "Blessed Assurance",
+    category: "Hymns",
+    verses: [
+      "Blessed assurance, Jesus is mine!\nO what a foretaste of glory divine!\nHeir of salvation, purchase of God,\nBorn of His Spirit, washed in His blood.",
+      "This is my story, this is my song,\nPraising my Saviour all the day long.\nThis is my story, this is my song,\nPraising my Saviour all the day long.",
+      "Perfect submission, perfect delight,\nVisions of rapture now burst on my sight;\nAngels descending, bring from above\nEchoes of mercy, whispers of love.",
+      "Perfect submission, all is at rest;\nI in my Saviour am happy and blest,\nWatching and waiting, looking above,\nFilled with His goodness, lost in His love."
+    ],
+  },
+  {
+    id: "270",
+    number: 270,
+    title: "Amazing Grace",
+    category: "Hymns",
+    verses: [
+      "Amazing grace! How sweet the sound\nThat saved a wretch like me!\nI once was lost, but now am found;\nWas blind, but now I see.",
+      "'Twas grace that taught my heart to fear,\nAnd grace my fears relieved;\nHow precious did that grace appear\nThe hour I first believed.",
+      "Through many dangers, toils, and snares,\nI have already come;\n'Tis grace hath brought me safe thus far,\nAnd grace will lead me home.",
+      "The Lord has promised good to me,\nHis word my hope secures;\nHe will my shield and portion be,\nAs long as life endures.",
+      "When we've been there ten thousand years,\nBright shining as the sun,\nWe've no less days to sing God's praise\nThan when we'd first begun."
+    ],
+  },
+  {
+    id: "271",
+    number: 271,
+    title: "What a Friend We Have in Jesus",
+    category: "Hymns",
+    verses: [
+      "What a Friend we have in Jesus,\nAll our sins and griefs to bear!\nWhat a privilege to carry\nEverything to God in prayer!\nO what peace we often forfeit,\nO what needless pain we bear,\nAll because we do not carry\nEverything to God in prayer!",
+      "Have we trials and temptations?\nIs there trouble anywhere?\nWe should never be discouraged;\nTake it to the Lord in prayer.\nCan we find a friend so faithful\nWho will all our sorrows share?\nJesus knows our every weakness;\nTake it to the Lord in prayer.",
+      "Are we weak and heavy laden,\nCumbered with a load of care?\nPrecious Saviour, still our Refuge—\nTake it to the Lord in prayer.\nDo thy friends despise, forsake thee?\nTake it to the Lord in prayer!\nIn His arms he'll take and shield thee,\nThou wilt find a solace there."
+    ],
+  },
+  {
+    id: "272",
+    number: 272,
+    title: "O Lord My God",
+    category: "Hymns",
+    verses: [
+      "O Lord my God, when I in awesome wonder\nConsider all the works Thy hand hath made,\nI see the stars, I hear the mighty thunder,\nThy power throughout the universe displayed.",
+      "Then sings my soul, my Saviour God, to Thee:\nHow great Thou art! How great Thou art!\nThen sings my soul, my Saviour God, to Thee:\nHow great Thou art! How great Thou art!",
+      "When through the woods and forest glades I wander,\nI hear the birds singing sweetly in the trees;\nWhen I look down from lofty mountain grandeur,\nAnd hear the brook and feel the gentle breeze.",
+      "And when I think that God, His Son not sparing,\nSent Him to die—I scarce can take it in—\nThat on the cross, my burden gladly bearing,\nHe bled and died to take away my sin.",
+      "When Christ shall come with shout of acclamation\nAnd take me home—what joy shall fill my heart!\nThen I shall bow in humble adoration,\nAnd there proclaim, my God, how great Thou art!"
+    ],
+  },
+  {
+    id: "273",
+    number: 273,
+    title: "At Calvary",
+    category: "Hymns",
+    verses: [
+      "Years I spent in vanity and pride,\nCaring not my Lord was crucified,\nKnowing not it was for me He died\nOn Calvary.",
+      "Mercy there was great, and grace was free;\nPardon there was multiplied to me;\nThere my burdened soul found liberty,\nAt Calvary.",
+      "By God's Word at last my sin I learned;\nThen I trembled at the law I'd spurned,\nTill my guilty soul imploring turned\nTo Calvary.",
+      "Now I've given to Jesus everything,\nNow I gladly own Him as my King,\nNow my raptured soul can only sing\nOf Calvary.",
+      "Oh, the love that drew salvation's plan!\nOh, the grace that brought it down to man!\nOh, the mighty gulf that God did span\nAt Calvary!"
+    ],
+  },
+  {
+    id: "274",
+    number: 274,
+    title: "Nearer, My God, to Thee",
+    category: "Hymns",
+    verses: [
+      "Nearer, my God, to Thee,\nNearer to Thee!\nE'en though it be a cross\nThat raiseth me.\nStill all my song shall be,\nNearer, my God, to Thee,\nNearer, my God, to Thee,\nNearer to Thee!",
+      "Though like the wanderer,\nThe sun goes down,\nDarkness be over me,\nMy rest a stone;\nYet in my dreams I'd be\nNearer, my God, to Thee,\nNearer, my God, to Thee,\nNearer to Thee!",
+      "There let the way appear,\nSteps unto heaven;\nAll that Thou sendest me,\nIn mercy given;\nAngels to beckon me\nNearer, my God, to Thee,\nNearer, my God, to Thee,\nNearer to Thee!",
+      "Then, with my waking thoughts\nBright with Thy praise,\nOut of my stony griefs\nBethel I'll raise;\nSo by my woes to be\nNearer, my God, to Thee,\nNearer, my God, to Thee,\nNearer to Thee!",
+      "Or if, on joyful wing\nCleaving the sky,\nSun, moon, and stars forgot,\nUpward I fly,\nStill all my song shall be,\nNearer, my God, to Thee,\nNearer, my God, to Thee,\nNearer to Thee!"
+    ],
+  },
+  {
+    id: "275",
+    number: 275,
+    title: "I Am Thine, O Lord",
+    category: "Hymns",
+    verses: [
+      "I am Thine, O Lord, I have heard Thy voice,\nAnd it told Thy love to me;\nBut I long to rise in the arms of faith\nAnd be closer drawn to Thee.\nDraw me nearer, nearer, blessed Lord,\nTo the cross where Thou hast died;\nDraw me nearer, nearer, nearer, blessed Lord,\nTo Thy precious, bleeding side.",
+      "Consecrate me now to Thy service, Lord,\nBy the pow'r of grace divine;\nLet my soul look up with a steadfast hope,\nAnd my will be lost in Thine.",
+      "Oh, the pure delight of a single hour\nThat before Thy throne I spend,\nWhen I kneel in prayer, and with Thee, my God,\nI commune as friend with friend!",
+      "There are depths of love that I cannot know\nTill I cross the Narrow sea;\nThere are heights of joy that I may no reach\nTill I rest in peace with Thee"
+    ],
+  },
+  {
+    id: "276",
+    number: 276,
+    title: "He Is Lord",
+    category: "Praise & Worship",
+    verses: [
+      "He is Lord, He is Lord\nHe is Lord, He is Lord\nHe is risen from the grave\nAnd He is Lord\nEvery knee shall bow, every tongue confess\nThat Jesus Christ is Lord."
+    ],
+  },
+  {
+    id: "277",
+    number: 277,
+    title: "There Is One Thing I Know",
+    category: "Praise & Worship",
+    verses: [
+      "There is one thing I know,\nEvery where I go\nThat Jesus Christ\nHas never failed me yet",
+      "He’s never failed me yet\nHe’s never failed me yet\nThat Jesus Christ\nHas never failed me yet"
+    ],
+  },
+  {
+    id: "278",
+    number: 278,
+    title: "O God, Our Help in Ages Past",
+    category: "Hymns",
+    verses: [
+      "O God, our help in ages past,\nOur hope for years to come,\nOur shelter from the stormy blast,\nAnd our eternal home.",
+      "Under the shadow of Thy throne\nThy saints have dwelt secure;\nSufficient is Thine arm alone,\nAnd our defense is sure.",
+      "Before the hills in order stood,\nOr earth received her frame,\nFrom everlasting Thou art God,\nTo endless years the same.",
+      "A thousand ages in Thy sight\nAre like an evening gone;\nShort as the watch that ends the night\nBefore the rising sun.",
+      "Time, like an ever-rolling stream,\nBears all its sons away;\nThey fly forgotten, as a dream\nDies at the opening day.",
+      "O God, our help in ages past,\nOur hope for years to come,\nBe Thou our guide while life shall last,\nAnd our eternal home."
+    ],
+  },
+  {
+    id: "279",
+    number: 279,
+    title: "I Need Thee Every Hour",
+    category: "Hymns",
+    verses: [
+      "I need Thee every hour, most gracious Lord;\nNo tender voice like Thine can peace afford.\nI need Thee, O I need Thee;\nEvery hour I need Thee;\nO bless me now, my Savior,\nI come to Thee.",
+      "I need Thee every hour, stay Thou nearby;\nTemptations lose their power when Thou art nigh.",
+      "I need Thee every hour, in joy or pain;\nCome quickly and abide, or life is vain.",
+      "I need Thee every hour, teach me Thy will;\nAnd Thy rich promises in me fulfill."
+    ],
+  },
+  {
+    id: "280",
+    number: 280,
+    title: "Great Is Thy Faithfulness",
+    category: "Hymns",
+    verses: [
+      "Great is Thy faithfulness, O God my Father;\nThere is no shadow of turning with Thee;\nThou changest not, Thy compassions, they fail not;\nAs Thou hast been Thou forever wilt be.\nGreat is Thy faithfulness!\nGreat is Thy faithfulness!\nMorning by morning new mercies I see;\nAll I have needed Thy hand hath provided;\nGreat is Thy faithfulness, Lord, unto me!",
+      "Summer and winter, and springtime and harvest,\nSun, moon, and stars in their courses above,\nJoin with all nature in manifold witness\nTo Thy great faithfulness, mercy and love.",
+      "Pardon for sin and a peace that endureth,\nThine own dear presence to cheer and to guide;\nStrength for today and bright hope for tomorrow,\nBlessings all mine, with ten thousand beside!"
+    ],
+  },
+  {
+    id: "281",
+    number: 281,
+    title: "God Be with You Till We Meet Again",
+    category: "Hymns",
+    verses: [
+      "God be with you till we meet again!\nBy His counsels guide, uphold you,\nWith His sheep securely fold you;\nGod be with you till we meet again!\nTill we meet! Till we meet!\nTill we meet at Jesus' feet;\nTill we meet! Till we meet!\nGod be with you till we meet again!",
+      "God be with you till we meet again!\n'Neath His wings protecting hide you,\nDaily manna still provide you;\nGod be with you till we meet again!",
+      "God be with you till we meet again!\nWhen life's perils thick confound you,\nPut His arms unfailing round you;\nGod be with you till we meet again!",
+      "God be with you till we meet again!\nKeep love's banner floating o'er you,\nSmite death's threatening wave before you;\nGod be with you till we meet again!"
+    ],
+  },
+  {
+    id: "282",
+    number: 282,
+    title: "Stand and Sing of Zambia",
+    titleBemba: "Lumbanyeni Zambia",
+    category: "National Anthem",
+    verses: [
+      "Stand and sing of Zambia, proud and free,\nLand of work and joy in unity,\nVictors in the struggle for the right,\nWe've won freedom's fight.\nAll one, strong and free.",
+      "Africa is our own motherland,\nFashion'd with and blessed by God's good hand,\nLet us all her people join as one,\nBrothers under the sun.\nAll one, strong and free.",
+      "One land and one nation is our cry,\nDignity and peace 'neath Zambia's sky,\nLike our noble eagle in its flight,\nZambia, praise to thee.\nAll one, strong and free.",
+      "Praise be to God,\nPraise be, praise be, praise be,\nBless our great nation,\nZambia, Zambia, Zambia.\nFree men we stand\nUnder the flag of our land.\nZambia, praise to thee!\nAll one, strong and free."
+    ],
+    versesBemba: [
+      "Lumbanyeni Zambia, no kwanga,\nNe cilumba twange tuumfwane,\nMpalume sha bulwi bwa cine,\nTwaliilubula.\nTwikatane bonse.",
+      "Bonse tuli bana ba Africa,\nUwasenaminwa na Lesa,\nNomba bonse twendele pamo,\nTwaliilubula.\nTwikatane bonse.",
+      "Fwe lukuta lwa Zambia lonse,\nTwikatane tubyo mutende,\nPamo nga lubambe mu mulu,\nLumbanyeni Zambia.\nTwikatane bonse.",
+      "Lumbanyeni,\nLesa, Lesa, wesu,\nApale calo,\nZambia, Zambia, Zambia.\nFwe bantungwa\nMu luunga lwa calo.\nLumbanyeni Zambia.\nTwikatane bonse."
+    ],
+  },
+  {
+    id: "283",
+    number: 283,
+    title: "Praise God from Whom All Blessings Flow",
+    category: "Hymns",
+    verses: [
+      "Praise God, from whom all blessings flow;\nPraise Him, all creatures here below;\nPraise Him above, ye heavenly host;\nPraise Father, Son, and Holy Ghost. Amen."
+    ],
+  },
 ];
 
 export const PREVIEW_HYMNS = HYMNS.slice(0, 10);
