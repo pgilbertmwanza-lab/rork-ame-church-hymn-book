@@ -182,17 +182,9 @@ export default function HomeScreen() {
 
   const handleCategoryPress = useCallback(
     (categoryName: string) => {
-      const categoryHymns = HYMNS.filter((h) => h.category === categoryName);
-      if (categoryHymns.length > 0) {
-        const firstAccessible = categoryHymns.find((h) => canAccessHymn(h.number));
-        if (firstAccessible) {
-          router.push(`/hymn/${firstAccessible.id}` as any);
-        } else {
-          setShowMembersModal(true);
-        }
-      }
+      router.push(`/category/${encodeURIComponent(categoryName)}` as any);
     },
-    [canAccessHymn]
+    []
   );
 
   const searchHeight = searchAnim.interpolate({
@@ -274,7 +266,7 @@ export default function HomeScreen() {
             <Text style={[styles.recentCardTitle, !isDark && { color: "#1A1A1A" }]} numberOfLines={2}>
               {displayTitle}
             </Text>
-            <Text style={[styles.recentCardCategory, !isDark && { color: "#71717A" }]} numberOfLines={1}>
+            <Text style={[styles.recentCardCategory, !isDark && { color: "#1A1A1A" }]} numberOfLines={1}>
               {item.category ?? "Hymn"}
             </Text>
           </LinearGradient>
@@ -781,7 +773,7 @@ const styles = StyleSheet.create({
   previewBannerText: {
     fontSize: 12,
     fontWeight: "600" as const,
-    color: "#991B1B",
+    color: "#1A1A1A",
   },
   previewBannerTextDark: {
     color: "#D1D5DB",
@@ -969,7 +961,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   hymnRowCategoryLight: {
-    color: "#71717A",
+    color: "#1A1A1A",
   },
   hymnRowCategoryDark: {
     color: "#9CA3AF",
@@ -986,11 +978,14 @@ const styles = StyleSheet.create({
   textDark: {
     color: "#1A1A1A",
   },
+  textBlack: {
+    color: "#1A1A1A",
+  },
   textMuted: {
     color: colors.dark.textSecondary,
   },
   textMutedLight: {
-    color: "#71717A",
+    color: "#1A1A1A",
   },
   modalOverlay: {
     flex: 1,

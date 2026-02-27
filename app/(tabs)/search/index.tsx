@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   info: { flex: 1 },
   title: { fontSize: 15, fontWeight: "600" as const, marginBottom: 2 },
   category: { fontSize: 13 },
-  categoryLight: { color: "#71717A" },
+  categoryLight: { color: "#1A1A1A" },
   categoryDark: { color: "#9CA3AF" },
   textWhite: { color: "#FFFFFF" },
   textDarkColor: { color: "#1A1A1A" },

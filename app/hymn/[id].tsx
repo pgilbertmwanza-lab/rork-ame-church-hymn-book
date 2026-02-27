@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
     color: colors.dark.text,
   },
   subtextLight: {
-    color: "#71717A",
+    color: "#1A1A1A",
   },
   subtextDark: {
     color: colors.dark.textSecondary,
@@ -400,7 +400,7 @@ const styles = StyleSheet.create({
     fontWeight: "600" as const,
   },
   languageButtonTextLight: {
-    color: "#4B5563",
+    color: "#1A1A1A",
   },
   languageButtonTextDark: {
     color: colors.dark.textSecondary,

@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dark.background,
   },
   fontSizeButtonActive: { backgroundColor: colors.crimson, borderColor: colors.crimson },
-  fontSizeButtonText: { fontSize: 14, fontWeight: "500" as const, color: "#4B5563" },
+  fontSizeButtonText: { fontSize: 14, fontWeight: "500" as const, color: "#1A1A1A" },
   fontSizeButtonTextDark: { color: colors.dark.textSecondary },
   fontSizeButtonTextActive: { color: "#FFFFFF", fontWeight: "700" as const },
   signOutText: { fontSize: 16, fontWeight: "700" as const, color: "#B91C1C" },
@@ -308,6 +308,6 @@ const styles = StyleSheet.create({
   footerText: { fontSize: 14 },
   textLight: { color: "#1A1A1A" },
   textDark: { color: colors.dark.text },
-  subtextLight: { color: "#71717A" },
+  subtextLight: { color: "#1A1A1A" },
   subtextDark: { color: colors.dark.textSecondary },
 });

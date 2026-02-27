@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     fontWeight: "600" as const,
   },
   languageButtonTextLight: {
-    color: "#4B5563",
+    color: "#1A1A1A",
   },
   languageButtonTextDark: {
     color: colors.dark.textSecondary,
