@@ -117,7 +117,7 @@ export default function SignInScreen() {
                 styles.createAccountButton,
                 isDark ? styles.createAccountButtonDark : styles.createAccountButtonLight,
               ]}
-              onPress={() => Linking.openURL("https://districtrayac.web.app/")}
+              onPress={() => Linking.openURL("https://17thdistrictrayac.org/hymn-book#unlock")}
             >
               <ExternalLink size={18} color={isDark ? "#fff" : "#212121"} />
               <Text style={[styles.createAccountText, isDark ? styles.textDark : styles.textLight]}>
