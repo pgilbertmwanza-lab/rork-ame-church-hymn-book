@@ -421,7 +421,7 @@ export default function HomeScreen() {
             {!isMember && (
               <View style={styles.previewBanner}>
                 <Lock size={13} color={colors.amber} />
-                <Text style={styles.previewBannerText}>
+                <Text style={[styles.previewBannerText, isDark && styles.previewBannerTextDark]}>
                   Viewing first 10 hymns · Sign in for the full library
                 </Text>
               </View>
@@ -781,6 +781,9 @@ const styles = StyleSheet.create({
   previewBannerText: {
     fontSize: 12,
     fontWeight: "600" as const,
+    color: "#991B1B",
+  },
+  previewBannerTextDark: {
     color: "#D1D5DB",
   },
   sectionContainer: {

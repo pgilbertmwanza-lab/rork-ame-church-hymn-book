@@ -91,8 +91,8 @@ export default function HymnDetailScreen() {
             <Text
               style={[
                 styles.languageButtonText,
+                isDark ? styles.languageButtonTextDark : styles.languageButtonTextLight,
                 language === "english" && styles.languageButtonTextActive,
-                isDark && language !== "english" && styles.languageButtonTextDark,
               ]}
             >
               English
@@ -109,8 +109,8 @@ export default function HymnDetailScreen() {
             <Text
               style={[
                 styles.languageButtonText,
+                isDark ? styles.languageButtonTextDark : styles.languageButtonTextLight,
                 language === "bemba" && styles.languageButtonTextActive,
-                isDark && language !== "bemba" && styles.languageButtonTextDark,
               ]}
             >
               Bemba
@@ -398,12 +398,15 @@ const styles = StyleSheet.create({
   languageButtonText: {
     fontSize: 16,
     fontWeight: "600" as const,
-    color: "#71717A",
+  },
+  languageButtonTextLight: {
+    color: "#4B5563",
   },
   languageButtonTextDark: {
     color: colors.dark.textSecondary,
   },
   languageButtonTextActive: {
-    color: colors.white,
+    color: "#FFFFFF",
+    fontWeight: "700" as const,
   },
 });

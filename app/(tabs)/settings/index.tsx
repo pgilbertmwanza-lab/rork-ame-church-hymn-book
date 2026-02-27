@@ -285,9 +285,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dark.background,
   },
   fontSizeButtonActive: { backgroundColor: colors.crimson, borderColor: colors.crimson },
-  fontSizeButtonText: { fontSize: 14, fontWeight: "500" as const, color: colors.mediumGray },
-  fontSizeButtonTextDark: { color: colors.dark.text },
-  fontSizeButtonTextActive: { color: colors.white },
+  fontSizeButtonText: { fontSize: 14, fontWeight: "500" as const, color: "#4B5563" },
+  fontSizeButtonTextDark: { color: colors.dark.textSecondary },
+  fontSizeButtonTextActive: { color: "#FFFFFF", fontWeight: "700" as const },
+  signOutText: { fontSize: 16, fontWeight: "700" as const, color: "#B91C1C" },
   signOutCard: { flexDirection: "row", alignItems: "center", gap: 12 },
   signOutCardLight: {
     backgroundColor: "#fff1f0",
@@ -302,7 +303,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(227, 27, 35, 0.2)",
   },
-  signOutText: { fontSize: 16, fontWeight: "600" as const, color: colors.error },
+
   footer: { alignItems: "center", paddingVertical: 24 },
   footerText: { fontSize: 14 },
   textLight: { color: "#1A1A1A" },
