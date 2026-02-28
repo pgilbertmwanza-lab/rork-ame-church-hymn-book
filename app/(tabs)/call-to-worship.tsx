@@ -42,8 +42,8 @@ export default function CallToWorshipScreen() {
         <TouchableOpacity
           style={[
             styles.languageButton,
-            language === "english" && styles.languageButtonActive,
             isDark ? styles.languageButtonDark : styles.languageButtonLight,
+            language === "english" && styles.languageButtonActive,
           ]}
           onPress={() => setLanguage("english")}
         >
@@ -60,8 +60,8 @@ export default function CallToWorshipScreen() {
         <TouchableOpacity
           style={[
             styles.languageButton,
-            language === "bemba" && styles.languageButtonActive,
             isDark ? styles.languageButtonDark : styles.languageButtonLight,
+            language === "bemba" && styles.languageButtonActive,
           ]}
           onPress={() => setLanguage("bemba")}
         >
