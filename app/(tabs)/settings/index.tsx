@@ -71,7 +71,7 @@ export default function SettingsTabScreen() {
 
               <TouchableOpacity
                 style={[styles.card, isDark ? styles.cardDark : styles.cardLight, styles.cardMargin]}
-                onPress={() => Linking.openURL("https://districtrayac.web.app/")}
+                onPress={() => Linking.openURL("https://17thdistrictrayac.org/hymn-book#unlock")}
               >
                 <View style={styles.settingRow}>
                   <View style={styles.settingLeft}>
@@ -148,16 +148,17 @@ export default function SettingsTabScreen() {
                     key={size}
                     style={[
                       styles.fontSizeButton,
-                      fontSize === size && styles.fontSizeButtonActive,
                       isDark ? styles.fontSizeButtonDark : styles.fontSizeButtonLight,
+                      fontSize === size && (isDark ? styles.fontSizeButtonActiveDark : styles.fontSizeButtonActiveLight),
                     ]}
                     onPress={() => updateFontSize(size)}
                   >
                     <Text
                       style={[
                         styles.fontSizeButtonText,
-                        fontSize === size && styles.fontSizeButtonTextActive,
                         isDark && fontSize !== size && styles.fontSizeButtonTextDark,
+                        !isDark && fontSize !== size && styles.fontSizeButtonTextLight,
+                        fontSize === size && styles.fontSizeButtonTextActive,
                       ]}
                     >
                       {fontSizeLabels[size]}
@@ -284,8 +285,10 @@ const styles = StyleSheet.create({
     borderColor: colors.dark.border,
     backgroundColor: colors.dark.background,
   },
-  fontSizeButtonActive: { backgroundColor: colors.crimson, borderColor: colors.crimson },
-  fontSizeButtonText: { fontSize: 14, fontWeight: "500" as const, color: "#1A1A1A" },
+  fontSizeButtonActiveLight: { backgroundColor: colors.crimson, borderColor: colors.crimson },
+  fontSizeButtonActiveDark: { backgroundColor: colors.crimson, borderColor: colors.crimson },
+  fontSizeButtonText: { fontSize: 14, fontWeight: "500" as const },
+  fontSizeButtonTextLight: { color: "#4B5563" },
   fontSizeButtonTextDark: { color: colors.dark.textSecondary },
   fontSizeButtonTextActive: { color: "#FFFFFF", fontWeight: "700" as const },
   signOutText: { fontSize: 16, fontWeight: "700" as const, color: "#B91C1C" },
